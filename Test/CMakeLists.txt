@@ -5,21 +5,23 @@
 
 autogen_py(Table_sine)
 
-foreach(hw_config ${hw_config_list})
+foreach(hw picoX7 picoX21H)
+   foreach(hw_config ${hw_config_list})
 
-   add_executable(test_hw_${hw_config}
-      Table_sine.cpp
-      test_picoX21H.cpp)
+      add_executable(test_${hw}_${hw_config}
+         Table_sine.cpp
+         test_${hw}.cpp)
 
-   target_include_directories(test_hw_${hw_config}
-      PUBLIC ${CMAKE_CURRENT_BINARY_DIR}
-      )
+      target_include_directories(test_${hw}_${hw_config}
+         PUBLIC ${CMAKE_CURRENT_BINARY_DIR}
+         )
 
-   target_compile_definitions(test_hw_${hw_config} PRIVATE HW_${hw_config})
+      target_compile_definitions(test_${hw}_${hw_config} PRIVATE HW_${hw_config})
 
-   target_link_libraries(test_hw_${hw_config} PRIVATE HW)
+      target_link_libraries(test_${hw}_${hw_config} PRIVATE HW)
 
-   set_target_properties(test_hw_${hw_config} PROPERTIES
-      RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")
+      set_target_properties(test_${hw}_${hw_config} PROPERTIES
+         RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")
 
+   endforeach()
 endforeach()
