@@ -7,9 +7,9 @@
 
 #pragma once
 
-#include "hw/Device/Dac.h"
-#include "hw/Device/PhysMidi.h"
-#include "hw/Device/Lcd.h"
-#include "hw/Device/Led.h"
-#include "hw/Device/Usb.h"
-#include "hw/Device/YM2151.h"
+#include "Dac.h"
+#include "PhysMidi.h"
+#include "Lcd.h"
+#include "Led.h"
+#include "Usb.h"
+#include "YM2151.h"

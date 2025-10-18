@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: MIT
 //-------------------------------------------------------------------------------
 
-#include "hw/picoX21H.h"
+#include "Hardware/picoX21H.h"
 
 #include <cstdio>
 #include <unistd.h>
