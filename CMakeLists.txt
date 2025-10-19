@@ -3,12 +3,14 @@
 # SPDX-License-Identifier: MIT
 #-------------------------------------------------------------------------------
 
+#-------------------------------------------------------------------------------
+# Top level for stand-alone build
+
 if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
-   # Top level for stand-alone build
 
    cmake_minimum_required(VERSION 3.20)
 
-   project(picoX21H
+   project(Hardware
            LANGUAGES CXX C ASM
            VERSION 0.01)
 
@@ -22,44 +24,34 @@ if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
       target_compile_definitions(MTL PUBLIC PLT_BCD_VERSION=${plt_bcd_version})
    endif()
 
+   set(HARDWARE picoX7 picoX21H)
+
 endif()
 
 #-------------------------------------------------------------------------------
 
+foreach(hw ${HARDWARE})
+   add_subdirectory(${hw})
+endforeach()
+
+#-------------------------------------------------------------------------------
+
 add_library(HW INTERFACE)
+
 target_include_directories(HW INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/..)
 
-if(${PLT_TARGET} STREQUAL rpipico)
+if(${PLT_TARGET} STREQUAL native)
 
-   set(hw_config_list
-       I2S_DAC
-       PWM_DAC
-       WAVESHARE_REV2_1
-       CACHE INTERNAL "Host List")
-
-   target_link_libraries(HW INTERFACE TNY MTL)
-
-   add_subdirectory(Test)
-
-elseif(${PLT_TARGET} STREQUAL rpipico2)
-
-   set(hw_config_list
-       I2S_DAC
-       PWM_DAC
-       WAVESHARE_REV2_1
-       CACHE INTERNAL "Host List")
-
-   target_link_libraries(HW INTERFACE TNY MTL)
-
-   add_subdirectory(Test)
-
-elseif(${PLT_TARGET} STREQUAL native)
-
-   set(hw_config_list
-       NATIVE
-       CACHE INTERNAL "Host List")
+   foreach(hw ${HARDWARE})
+      set(hw_${hw}_config_list NATIVE CACHE INTERNAL "Config Variations")
+   endforeach()
 
    target_link_libraries(HW INTERFACE PLT STB)
 
-endif()
+else()
 
+   target_link_libraries(HW INTERFACE TNY MTL)
+
+   add_subdirectory(Test)
+
+endif()

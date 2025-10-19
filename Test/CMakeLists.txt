@@ -5,8 +5,8 @@
 
 autogen_py(Table_sine)
 
-foreach(hw picoX7 picoX21H)
-   foreach(hw_config ${hw_config_list})
+foreach(hw ${HARDWARE})
+   foreach(hw_config ${hw_${hw}_config_list})
 
       add_executable(test_${hw}_${hw_config}
          Table_sine.cpp

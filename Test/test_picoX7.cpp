@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: MIT
 //-------------------------------------------------------------------------------
 
-#include "Hardware/picoX7.h"
+#include "Hardware/picoX7/Config.h"
 
 #include <cstdio>
 #include <unistd.h>
