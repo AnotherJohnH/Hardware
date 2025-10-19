@@ -8,6 +8,7 @@
 #pragma once
 
 #if defined(HW_DAC_I2S_GENERIC) || defined(HW_DAC_I2S_WAVESHARE_REV2_1)
+#define HW_DAC_I2S
 #include "MTL/chip/PioAudio.h"
 
 #elif defined(HW_DAC_PWM)
