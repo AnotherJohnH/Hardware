@@ -24,7 +24,7 @@
 
 #define HW_MIDI_IN_UART   MTL::Uart1_P26_P27
 
-#define HW_DAC_I2S
+#define HW_DAC_I2S_GENERIC
 #define HW_DAC_I2S_SD     MTL::PIN_31
 #define HW_DAC_I2S_CLKS   MTL::PIN_32
 

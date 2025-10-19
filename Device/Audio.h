@@ -7,17 +7,8 @@
 
 #pragma once
 
-#if defined(HW_DAC_I2S_WAVESHARE_REV2_1)
-#define HW_DAC_I2S
-
-#elif defined(HW_DAC_I2S_PIMORONI_VGA_DEMO)
-#define HW_DAC_I2S
-
-#elif defined(HW_DAC_I2S_PIMORONI_PICO_AUDIO)
-#define HW_DAC_I2S
-
-#elif defined(HW_DAC_I2S_ANY)
-#define HW_DAC_I2S
+#if defined(HW_DAC_I2S_GENERIC) || defined(HW_DAC_I2S_WAVESHARE_REV2_1)
+#include "MTL/chip/PioAudio.h"
 
 #elif defined(HW_DAC_PWM)
 #include "MTL/chip/PwmAudio.h"
@@ -29,16 +20,32 @@
 #error "DAC config not set"
 #endif
 
-#if defined(HW_DAC_I2S)
-#include "MTL/chip/PioAudio.h"
-#endif
-
 namespace hw {
 
-#if defined(HW_DAC_I2S_WAVESHARE_REV2_1)
+#if defined(HW_DAC_I2S_GENERIC)
 
-//! I2S DAC, with pinout for Waveshare Pico-Audio (Rev 2.1)
-//! piggy-back
+//! Generic I2S DAC
+template <unsigned SAMPLES_PER_TICK>
+class Audio : public MTL::PioAudio<MTL::Pio0,SAMPLES_PER_TICK>
+{
+public:
+   Audio(unsigned dac_freq)
+      : MTL::PioAudio<MTL::Pio0,SAMPLES_PER_TICK>{dac_freq,
+                                                  HW_DAC_I2S_SD,
+                                                  HW_DAC_I2S_CLKS,
+                                                  /* MCLK */ MTL::PIN_IGNORE,
+                                                  MTL::Audio::STEREO_PAIRS_16,
+                                                  /* LSB LRCLK / MSB SCLK */ false}
+   {
+      MTL::config.gpio(HW_DAC_I2S_SD,       ">I2S SD");
+      MTL::config.gpio(HW_DAC_I2S_CLKS,     ">I2S SCLK");
+      MTL::config.gpio(HW_DAC_I2S_CLKS + 1, ">I2S LRCLK");
+   }
+};
+
+#elif defined(HW_DAC_I2S_WAVESHARE_REV2_1)
+
+//! Waveshare Pico-Audio (Rev 2.1) I2S DAC
 template <unsigned SAMPLES_PER_TICK>
 class Audio : public MTL::PioAudio<MTL::Pio0,SAMPLES_PER_TICK>
 {
@@ -55,69 +62,6 @@ public:
       MTL::config.gpio(HW_DAC_I2S_CLKS,     ">I2S LRCLK");
       MTL::config.gpio(HW_DAC_I2S_CLKS + 1, ">I2S SCLK");
       MTL::config.gpio(HW_DAC_I2S_MCLK,     ">I2S MCLK");
-   }
-};
-
-#elif defined(HW_DAC_I2S_PIMORONI_VGA_DEMO)
-
-//! I2S DAC, with pinout for PiMoroni VGA Demo board
-template <unsigned SAMPLES_PER_TICK>
-class Audio : public MTL::PioAudio<MTL::Pio0,SAMPLES_PER_TICK>
-{
-public:
-   Audio(unsigned dac_freq)
-      : MTL::PioAudio<MTL::Pio0,SAMPLES_PER_TICK>{dac_freq,
-                                                  HW_DAC_I2S_SD,
-                                                  HW_DAC_I2S_CLKS,
-                                                  /* MCLK */ MTL::PIN_IGNORE,
-                                                  MTL::Audio::STEREO_PAIRS_16,
-                                                  /* LSB LRCLK / MSB SCLK */ false}
-   {
-      MTL::config.gpio(HW_DAC_I2S_SD,       ">I2S SD");
-      MTL::config.gpio(HW_DAC_I2S_CLKS,     ">I2S SCLK");
-      MTL::config.gpio(HW_DAC_I2S_CLKS + 1, ">I2S LRCLK");
-   }
-};
-
-#elif defined(HW_DAC_I2S_PIMORONI_PICO_AUDIO)
-
-//! I2S DAC, with pinout for PiMoroni Pico Audio (piggy back)
-template <unsigned SAMPLES_PER_TICK>
-class Audio : public MTL::PioAudio<MTL::Pio0,SAMPLES_PER_TICK>
-{
-public:
-   Audio(unsigned dac_freq)
-      : MTL::PioAudio<MTL::Pio0,SAMPLES_PER_TICK>{dac_freq,
-                                                  HW_DAC_I2S_SD,
-                                                  HW_DAC_I2S_CLKS, 
-                                                  /* MCLK */ MTL::PIN_IGNORE,
-                                                  MTL::Audio::STEREO_PAIRS_16,
-                                                  /* LSB LRCLK / MSB SCLK */ false}
-   {
-      MTL::config.gpio(HW_DAC_I2S_SD,       ">I2S SD");
-      MTL::config.gpio(HW_DAC_I2S_CLKS,     ">I2S SCLK");
-      MTL::config.gpio(HW_DAC_I2S_CLKS + 1, ">I2S LRCLK");
-   }
-};
-
-#elif defined(HW_DAC_I2S_ANY)
-
-//! I2S DAC, with pinout in common with other picoX21H project
-template <unsigned SAMPLES_PER_TICK>
-class Audio : public MTL::PioAudio<MTL::Pio0,SAMPLES_PER_TICK>
-{
-public:
-   Audio(unsigned dac_freq)
-      : MTL::PioAudio<MTL::Pio0,SAMPLES_PER_TICK>{dac_freq,
-                                                  HW_DAC_I2S_SD,
-                                                  HW_DAC_I2S_CLKS,
-                                                  /* MCLK */ MTL::PIN_IGNORE,
-                                                  MTL::Audio::STEREO_PAIRS_16,
-                                                  /* LSB LRCLK / MSB SCLK */ false}
-   {
-      MTL::config.gpio(HW_DAC_I2S_SD,       ">I2S SD");
-      MTL::config.gpio(HW_DAC_I2S_CLKS,     ">I2S SCLK");
-      MTL::config.gpio(HW_DAC_I2S_CLKS + 1, ">I2S LRCLK");
    }
 };
 

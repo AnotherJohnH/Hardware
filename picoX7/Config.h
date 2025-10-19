@@ -28,7 +28,7 @@
 #define HW_LED_7_SEG_DAT  MTL::PIN_21
 #define HW_LED_7_SEG_CLK  MTL::PIN_22
 
-#define HW_DAC_I2S_ANY
+#define HW_DAC_I2S_GENERIC
 #define HW_DAC_I2S_SD     MTL::PIN_31
 #define HW_DAC_I2S_CLKS   MTL::PIN_32
 
@@ -91,7 +91,7 @@
 #define HW_LED_7_SEG_DAT  MTL::PIN_21
 #define HW_LED_7_SEG_CLK  MTL::PIN_22
 
-#define HW_DAC_I2S_PIMORONI_PICO_AUDIO
+#define HW_DAC_I2S_GENERIC
 #define HW_DAC_I2S_SD     MTL::PIN_12
 #define HW_DAC_I2S_CLKS   MTL::PIN_14
 
@@ -106,7 +106,7 @@
 
 #define HW_MIDI_IN_FAKE
 
-#define HW_DAC_I2S_PIMORONI_VGA_DEMO
+#define HW_DAC_I2S_GENERIC
 #define HW_DAC_I2S_SD     MTL::PIN_31
 #define HW_DAC_I2S_CLKS   MTL::PIN_32
 
