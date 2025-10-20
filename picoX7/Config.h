@@ -133,4 +133,4 @@
 #include "Hardware/Device/Lcd.h"
 #include "Hardware/Device/Led.h"
 #include "Hardware/Device/Led7Seg.h"
-#include "Hardware/Device/Usb.h"
+#include "Hardware/Device/UsbFileMidi.h"

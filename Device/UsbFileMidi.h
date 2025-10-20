@@ -19,14 +19,14 @@ namespace hw {
 #if defined(HW_USB_DEVICE)
 
 //! pico micro USB : MIDI in and storage interface
-class USBDevice
+class UsbFileMidi
    : public MIDI::Interface
    , public MTL::USBDevice
 {
 public:
-   USBDevice(uint16_t         device_id_,
-             const char*      device_name_,
-             STB::FileSystem& file_system_)
+   UsbFileMidi(uint16_t         device_id_,
+               const char*      device_name_,
+               STB::FileSystem& file_system_)
       : MTL::USBDevice("https://github.com/AnotherJohnH",
                        device_id_, PLT_BCD_VERSION, device_name_,
                        PLT_COMMIT)

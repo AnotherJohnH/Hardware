@@ -134,7 +134,7 @@ public:
    }
 };
 
-static hw::USBDevice* usb_ptr{nullptr};
+static hw::UsbFileMidi* usb_ptr{nullptr};
 
 extern "C" void IRQ_USBCTRL()
 {
@@ -147,8 +147,8 @@ extern "C" void IRQ_USBCTRL()
 //! USB MIDI test
 static NOINLINE void testUsb(Phase phase_)
 {
-   static FileSystem    file_portal{};
-   static hw::USBDevice usb{0x91C0, "test_hw", file_portal};
+   static FileSystem      file_portal{};
+   static hw::UsbFileMidi usb{0x91C0, "test_hw", file_portal};
 
    switch(phase_)
    {
