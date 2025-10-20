@@ -13,6 +13,8 @@ if(${PLT_TARGET} STREQUAL rpipico)
        PIMORONI_VGA_DEMO
        CACHE INTERNAL "Config Variations")
 
+   add_subdirectory(Test)
+
 elseif(${PLT_TARGET} STREQUAL rpipico2)
 
    set(hw_picoX7_config_list
@@ -21,5 +23,7 @@ elseif(${PLT_TARGET} STREQUAL rpipico2)
        WAVESHARE_REV2_1
        PIMORONI_PICO_AUDIO
        CACHE INTERNAL "Config Variations")
+
+   add_subdirectory(Test)
 
 endif()

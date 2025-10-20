@@ -52,6 +52,4 @@ else()
 
    target_link_libraries(HW INTERFACE TNY MTL)
 
-   add_subdirectory(Test)
-
 endif()
