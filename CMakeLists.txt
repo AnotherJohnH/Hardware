@@ -57,4 +57,9 @@ else()
 
    target_include_directories(HW PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/..)
 
+   math(EXPR plt_bcd_version "${CMAKE_MAJOR_VERSION} * 0x100 + ${CMAKE_MINOR_VERSION}"
+        OUTPUT_FORMAT HEXADECIMAL)
+
+   target_compile_definitions(MTL PUBLIC PLT_BCD_VERSION=${plt_bcd_version})
+
 endif()

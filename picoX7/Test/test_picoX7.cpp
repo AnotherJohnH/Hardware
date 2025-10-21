@@ -192,7 +192,7 @@ static void consoleReport()
 
    printf("TEST HARDWARE\n");
    printf("\n");
-   printf("Program  : Test HW (%s)\n", HW_DESCR);
+   printf("Program  : Test picoX7 (%s)\n", HW_DESCR);
    printf("Author   : Copyright (c) 2025 John D. Haughton\n");
    printf("License  : MIT\n");
    printf("Version  : %s\n", PLT_VERSION);
