@@ -36,20 +36,25 @@ endforeach()
 
 #-------------------------------------------------------------------------------
 
-add_library(HW INTERFACE)
-
-target_include_directories(HW INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/..)
-
 if(${PLT_TARGET} STREQUAL native)
 
    foreach(hw ${HARDWARE})
       set(hw_${hw}_config_list NATIVE CACHE INTERNAL "Config Variations")
    endforeach()
 
+   add_library(HW INTERFACE)
+
    target_link_libraries(HW INTERFACE PLT STB)
+
+   target_include_directories(HW INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/..)
 
 else()
 
-   target_link_libraries(HW INTERFACE TNY MTL)
+   add_library(HW STATIC
+               fault_handler.cpp)
+
+   target_link_libraries(HW PUBLIC TNY MTL)
+
+   target_include_directories(HW PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/..)
 
 endif()
