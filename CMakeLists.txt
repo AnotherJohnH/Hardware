@@ -18,6 +18,11 @@ if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
 
    set(HARDWARE picoX7 picoX21H picoSense)
 
+else()
+
+   set(CMAKE_CXX_STANDARD          20   PARENT_SCOPE)
+   set(CMAKE_CXX_STANDARD_REQUIRED True PARENT_SCOPE)
+
 endif()
 
 #-------------------------------------------------------------------------------
