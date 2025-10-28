@@ -288,14 +288,16 @@ static void consoleReport()
    printf("Built    : %s %s\n", __TIME__, __DATE__);
    printf("Compiler : %s\n", __VERSION__);
 
+#if !defined(HW_NATIVE)
    char config[1024];
    MTL::config.format(config, sizeof(config));
    puts(config);
+#endif
 }
 
 //------------------------------------------------------------------------------
 
-int MTL_main()
+int main()
 {
    test(DECL);
 

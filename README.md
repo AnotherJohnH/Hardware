@@ -1,5 +1,21 @@
 # Hardware
 
+## Configs
+
+### picoX7
+
+Hardware config to support a MIDI synthesizer with DAC, 16x2 LCD and 2x7
+segment LED
+
+### picoX21H
+
+Hardware config to support a MIDI synthesizer with DAC, 16x2 LCD and an actual
+Yamaha YM2151 FM synth chip
+
+### picoSense
+
+Hardware config to support E-paper with I2C temperature sensor.
+
 ## Checkout
 
 This repo uses git sub-modules, so checkout using --recurse-submodules to clone

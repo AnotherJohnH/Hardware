@@ -16,19 +16,19 @@ if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
 
    include(CTest)
 
-   add_subdirectory(Platform)
-
-   if(${PLT_TARGET} STREQUAL rpipico OR ${PLT_TARGET} STREQUAL rpipico2)
-      math(EXPR plt_bcd_version "${CMAKE_MAJOR_VERSION} * 0x100 + ${CMAKE_MINOR_VERSION}"
-           OUTPUT_FORMAT HEXADECIMAL)
-      target_compile_definitions(MTL PUBLIC PLT_BCD_VERSION=${plt_bcd_version})
-   endif()
-
-   set(HARDWARE picoX7 picoX21H)
+   set(HARDWARE picoX7 picoX21H picoSense)
 
 endif()
 
 #-------------------------------------------------------------------------------
+
+add_subdirectory(Platform)
+
+if(${PLT_TARGET} STREQUAL rpipico OR ${PLT_TARGET} STREQUAL rpipico2)
+    math(EXPR plt_bcd_version "${CMAKE_MAJOR_VERSION} * 0x100 + ${CMAKE_MINOR_VERSION}"
+           OUTPUT_FORMAT HEXADECIMAL)
+    target_compile_definitions(MTL PUBLIC PLT_BCD_VERSION=${plt_bcd_version})
+endif()
 
 foreach(hw ${HARDWARE})
    add_subdirectory(${hw})

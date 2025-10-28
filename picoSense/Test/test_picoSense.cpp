@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: MIT
 //-------------------------------------------------------------------------------
 
-#include "Hardware/picoX7/Config.h"
+#include "Hardware/picoSense/Config.h"
 
 #include <cstdio>
 #include <unistd.h>
@@ -37,12 +37,13 @@ static NOINLINE void testLED(Phase phase_)
    }
 }
 
-//--- TEST 16x2 LCD ------------------------------------------------------------
+//--- TEST E-PAPER -------------------------------------------------------------
 
-static NOINLINE void testLCD(Phase phase_)
+static NOINLINE void testEPaper(Phase phase_)
 {
-#if not defined(HW_LCD_NONE)
-   static hw::Lcd lcd{};
+   static hw::EPaper::Canvas epaper{};
+   static const STB::Colour WHITE = STB::RGB(0xC0, 0xC0, 0xC0);
+   static const STB::Colour BLACK = STB::RGB(0x00, 0x00, 0x00);
 
    switch(phase_)
    {
@@ -50,73 +51,21 @@ static NOINLINE void testLCD(Phase phase_)
       break;
 
    case INFO:
-      printf("LCD: display \"Hello World!\", an incrementing value and an up arrow\n");
+      printf("EPaper: \n");
       break;
 
    case START:
-      {
-         uint8_t ch[8] =
-         {
-            0b00000,
-            0b00100,
-            0b01110,
-            0b10101,
-            0b00100,
-            0b00100,
-            0b00100,
-            0b00000
-         };
-
-         lcd.progChar(0, ch);
-      }
+      epaper.clear(WHITE);
+      epaper.drawLine(BLACK, 0, 0, epaper.getWidth(), epaper.getHeight());
+      epaper.drawLine(BLACK, 0, epaper.getHeight(), epaper.getWidth(), 0);
+      epaper.refresh();
       break;
 
    case RUN:
-      {
-         static unsigned n{0};
-
-         char text[16];
-         snprintf(text, sizeof(text), "Hello %u", n++);
-
-         lcd.move(0, 0);
-         lcd.print(text);
-
-         lcd.move(0, 1);
-         lcd.print("World!");
-
-         lcd.move(15, 1);
-         lcd.putchar('\0');
-      }
-      break;
-   }
-#endif
-}
-
-//--- TEST PHYSICAL MIDI ------------------------------------------------------
-
-static NOINLINE void testPhysMIDI(Phase phase_)
-{
-   static hw::PhysMidi phys_midi{};
-
-   switch(phase_)
-   {
-   case DECL:
-      break;
-
-   case INFO:
-      printf("MIDI: Laggy log of MIDI messages on the console\n" );
-      break;
-
-   case START:
-      phys_midi.setDebug(true);
-      break;
-
-   case RUN:
-      phys_midi.tick();
+      epaper.refresh();
       break;
    }
 }
-
 
 //--- TEST USB INTERFACES -----------------------------------------------------
 
@@ -134,7 +83,7 @@ public:
    }
 };
 
-static hw::UsbFileMidi* usb_ptr{nullptr};
+static hw::UsbFile* usb_ptr{nullptr};
 
 extern "C" void IRQ_USBCTRL()
 {
@@ -144,11 +93,11 @@ extern "C" void IRQ_USBCTRL()
    }
 }
 
-//! USB MIDI test
+//! USB test
 static NOINLINE void testUsb(Phase phase_)
 {
-   static FileSystem      file_portal{};
-   static hw::UsbFileMidi usb{0x91C0, "test_hw", file_portal};
+   static FileSystem  file_portal{};
+   static hw::UsbFile usb{0x91C0, "test_hw", file_portal};
 
    switch(phase_)
    {
@@ -158,27 +107,22 @@ static NOINLINE void testUsb(Phase phase_)
 
    case INFO:
       printf("USB: Mass storage device \"HW_TEST\" with a simple README\n" );
-      printf("USB: Laggy log of MIDI messages on the console\n" );
       break;
 
    case START:
-      usb.setDebug(true);
       break;
 
    case RUN:
-      usb.tick();
       break;
    }
 }
-
 
 //------------------------------------------------------------------------------
 
 static void test(Phase phase_)
 {
    if (1) testLED(phase_);
-   if (1) testLCD(phase_);
-   if (1) testPhysMIDI(phase_);
+   if (1) testEPaper(phase_);
    if (1) testUsb(phase_);
 }
 
@@ -192,7 +136,7 @@ static void consoleReport()
 
    printf("TEST HARDWARE\n");
    printf("\n");
-   printf("Program  : Test picoX7 (%s)\n", HW_DESCR);
+   printf("Program  : Test picoSense (%s)\n", HW_DESCR);
    printf("Author   : Copyright (c) 2025 John D. Haughton\n");
    printf("License  : MIT\n");
    printf("Version  : %s\n", PLT_VERSION);
