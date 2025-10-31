@@ -41,7 +41,6 @@ static NOINLINE void testLED(Phase phase_)
 
 static NOINLINE void testLCD(Phase phase_)
 {
-#if not defined(HW_LCD_NONE)
    static hw::Lcd lcd{};
 
    switch(phase_)
@@ -89,7 +88,6 @@ static NOINLINE void testLCD(Phase phase_)
       }
       break;
    }
-#endif
 }
 
 //--- TEST PHYSICAL MIDI ------------------------------------------------------

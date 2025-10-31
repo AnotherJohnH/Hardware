@@ -8,8 +8,10 @@
 #pragma once
 
 #if defined(HW_LED_7_SEG)
+
 #include "MTL/Pins.h"
 #include "MTL/Led7Seg.h"
+
 #endif
 
 namespace hw {
@@ -29,6 +31,26 @@ public:
       MTL::config.gpio(HW_LED_7_SEG_CLK, ">7-SEG LED clk");
       MTL::config.gpio(HW_LED_7_SEG_DAT, ">7-SEG LED data");
    }
+};
+
+#elif defined(HW_LED_7_SEG_NATIVE)
+
+class Led7Seg
+{
+public:
+   Led7Seg() = default;
+
+   void printDec(unsigned, unsigned) {}
+};
+
+#else
+
+class Led7Seg
+{
+public:
+   Led7Seg() = default;
+
+   void printDec(unsigned, unsigned) {}
 };
 
 #endif
