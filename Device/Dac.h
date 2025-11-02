@@ -69,10 +69,10 @@ class Dac
 public:
    Dac(unsigned sample_rate_)
    {
-      MTL::config.gpio(HW_DAC_I2S_SD,       "I2S SD");
-      MTL::config.gpio(HW_DAC_I2S_CLKS,     "I2S SCLK");
-      MTL::config.gpio(HW_DAC_I2S_CLKS + 1, "I2S LRCLK");
-      MTL::config.gpio(HW_DAC_I2S_MCLK,     "I2S MCLK");
+      MTL::config.gpio(HW_DAC_I2S_SD,       ">I2S SD");
+      MTL::config.gpio(HW_DAC_I2S_CLKS,     ">I2S SCLK");
+      MTL::config.gpio(HW_DAC_I2S_CLKS + 1, ">I2S LRCLK");
+      MTL::config.gpio(HW_DAC_I2S_MCLK,     ">I2S MCLK");
 
       i2s.download(sample_rate_ * BITS_PER_FRAME * 2,
                    HW_DAC_I2S_SD, HW_DAC_I2S_CLKS);
@@ -106,7 +106,7 @@ class Dac
 public:
    Dac(unsigned sample_rate_)
    {
-      MTL::config.gpio(HW_DAC_PWM, "PWM (Audio out)");
+      MTL::config.gpio(HW_DAC_PWM, ">PWM (audio out)");
    }
 
    void setSampleRate(unsigned sample_rate_)

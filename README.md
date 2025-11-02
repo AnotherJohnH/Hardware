@@ -10,13 +10,9 @@ segment LED
 ### picoX21H
 
 Hardware config to support a MIDI synthesizer with DAC, 16x2 LCD and an actual
-Yamaha YM2151 FM synth chip
+Yamaha YM2151 FM synthesizer chip.
 
-[Block Diagram](picoX21H/docs/block_diagram.pdf)
-
-![prototype](picoX21H/docs/breadboard.jpg)
-
-[Schematic](picoX21H/docs/schematic.pdf) for the above.
+See [README](picoX21H/README.md) for more information.
 
 ### picoSense
 
