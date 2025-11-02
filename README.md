@@ -7,6 +7,8 @@
 Hardware config to support a MIDI synthesizer with DAC, 16x2 LCD and 2x7
 segment LED
 
+See [README](picoX7/README.md) for more information.
+
 ### picoX21H
 
 Hardware config to support a MIDI synthesizer with DAC, 16x2 LCD and an actual

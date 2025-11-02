@@ -118,19 +118,7 @@ static NOINLINE void testPhysMIDI(Phase phase_)
 
 //--- TEST USB INTERFACES -----------------------------------------------------
 
-#include "STB/FAT/FAT16.h"
-
-class FileSystem: public STB::FAT16<6>
-{
-public:
-   FileSystem()
-      : STB::FAT16<6>("HW_TEST")
-   {
-      static const char* readme_txt = "Hello, world!";
-
-      addFile("README.txt", strlen(readme_txt), (uint8_t*)readme_txt);
-   }
-};
+#include "Hardware/FilePortal.h"
 
 static hw::UsbFileMidi* usb_ptr{nullptr};
 
@@ -145,7 +133,9 @@ extern "C" void IRQ_USBCTRL()
 //! USB MIDI test
 static NOINLINE void testUsb(Phase phase_)
 {
-   static FileSystem      file_portal{};
+   static hw::FilePortal file_portal{"HW_TEST",
+                                     "https://github.com/AnotherJohnH/Hardware/"};
+
    static hw::UsbFileMidi usb{0x91C0, "test_hw", file_portal};
 
    switch(phase_)
@@ -161,6 +151,7 @@ static NOINLINE void testUsb(Phase phase_)
 
    case START:
       usb.setDebug(true);
+      file_portal.addREADME("Test picoX7");
       break;
 
    case RUN:
