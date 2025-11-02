@@ -24,14 +24,13 @@
 
 #define HW_MIDI_IN_UART   MTL::Uart1_P26_P27
 
-#define HW_LED_7_SEG
-#define HW_LED_7_SEG_DAT  MTL::PIN_21
-#define HW_LED_7_SEG_CLK  MTL::PIN_22
-
 #define HW_DAC_I2S_GENERIC
 #define HW_DAC_I2S_SD     MTL::PIN_31
 #define HW_DAC_I2S_CLKS   MTL::PIN_32
 
+#define HW_LED_7_SEG
+#define HW_LED_7_SEG_DAT  MTL::PIN_21
+#define HW_LED_7_SEG_CLK  MTL::PIN_22
 
 //------------------------------------------------------------------------------
 #elif defined(HW_PWM_DAC)
@@ -46,11 +45,11 @@
 
 #define HW_MIDI_IN_UART   MTL::Uart1_P26_P27
 
+#define HW_DAC_PWM        MTL::PIN_31
+
 #define HW_LED_7_SEG
 #define HW_LED_7_SEG_DAT  MTL::PIN_21
 #define HW_LED_7_SEG_CLK  MTL::PIN_22
-
-#define HW_DAC_PWM        MTL::PIN_31
 
 //------------------------------------------------------------------------------
 #elif defined(HW_WAVESHARE_REV2_1)
@@ -87,14 +86,13 @@
 #define HW_LCD_I2C        MTL::I2C1_P24_P25
 #define HW_LCD_I2C_ADDR   0x3E
 
-#define HW_LED_7_SEG
-#define HW_LED_7_SEG_DAT  MTL::PIN_21
-#define HW_LED_7_SEG_CLK  MTL::PIN_22
-
 #define HW_DAC_I2S_GENERIC
 #define HW_DAC_I2S_SD     MTL::PIN_12
 #define HW_DAC_I2S_CLKS   MTL::PIN_14
 
+#define HW_LED_7_SEG
+#define HW_LED_7_SEG_DAT  MTL::PIN_21
+#define HW_LED_7_SEG_CLK  MTL::PIN_22
 
 //------------------------------------------------------------------------------
 #elif defined(HW_PIMORONI_VGA_DEMO)
@@ -118,8 +116,8 @@
 #define HW_USB_FILE_NATIVE
 #define HW_MIDI_IN_NATIVE
 #define HW_LCD_NATIVE
-#define HW_LED_7_SEG_NATIVE
 #define HW_DAC_NATIVE
+#define HW_LED_7_SEG_NATIVE
 
 //------------------------------------------------------------------------------
 #else
@@ -134,5 +132,5 @@
 #include "Hardware/Device/PhysMidi.h"
 #include "Hardware/Device/Lcd.h"
 #include "Hardware/Device/Led.h"
-#include "Hardware/Device/Led7Seg.h"
 #include "Hardware/Device/UsbFileMidi.h"
+#include "Hardware/Device/Led7Seg.h"

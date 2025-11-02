@@ -41,7 +41,6 @@ static NOINLINE void testLED(Phase phase_)
 
 static NOINLINE void testLCD(Phase phase_)
 {
-#if not defined(HW_LCD_NONE)
    static hw::Lcd lcd{};
 
    switch(phase_)
@@ -89,7 +88,6 @@ static NOINLINE void testLCD(Phase phase_)
       }
       break;
    }
-#endif
 }
 
 //--- TEST DAC ----------------------------------------------------------------
@@ -103,6 +101,7 @@ const unsigned FRAC_BITS   = 32 - LOG2_TABLE_SINE_SIZE;
 
 static hw::Dac* dac_ptr{nullptr};
 
+#if !defined(HW_NATIVE)
 static void runDAC()
 {
    while(true)
@@ -128,6 +127,7 @@ static void runDAC()
       }
    }
 }
+#endif
 
 static NOINLINE void testDAC(Phase phase_)
 {
@@ -147,7 +147,9 @@ static NOINLINE void testDAC(Phase phase_)
       break;
 
    case START:
+#if !defined(HW_NATIVE)
       MTL_start_core(1, runDAC);
+#endif
       break;
 
    case RUN:
@@ -238,7 +240,9 @@ static NOINLINE void testUsb(Phase phase_)
 
 static NOINLINE void testYM2151(Phase phase_)
 {
+#if !defined(HW_NATIVE)
    static hw::YM2151<> ym2151{};
+#endif
 
    switch(phase_)
    {

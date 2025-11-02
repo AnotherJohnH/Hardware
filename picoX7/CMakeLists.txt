@@ -11,7 +11,7 @@ if(${PLT_TARGET} STREQUAL rpipico)
        WAVESHARE_REV2_1
        PIMORONI_PICO_AUDIO
        PIMORONI_VGA_DEMO
-       CACHE INTERNAL "Config Variations")
+       CACHE INTERNAL "picoX7 config Variations")
 
    add_subdirectory(Test)
 
@@ -22,7 +22,7 @@ elseif(${PLT_TARGET} STREQUAL rpipico2)
        PWM_DAC
        WAVESHARE_REV2_1
        PIMORONI_PICO_AUDIO
-       CACHE INTERNAL "Config Variations")
+       CACHE INTERNAL "picoX7 config Variations")
 
    add_subdirectory(Test)
 
@@ -30,7 +30,7 @@ elseif(${PLT_TARGET} STREQUAL native)
 
    set(hw_picoX7_config_list
        NATIVE
-       CACHE INTERNAL "Config Variations")
+       CACHE INTERNAL "picoX7 config Variations")
 
    add_subdirectory(Test)
 

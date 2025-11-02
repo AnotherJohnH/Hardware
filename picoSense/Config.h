@@ -53,8 +53,8 @@
 
 //==============================================================================
 
-#include "Hardware/Device/UsbFile.h"
 #include "Hardware/Device/EPaper.h"
 #include "Hardware/Device/TempSense.h"
 #include "Hardware/Device/Led.h"
+#include "Hardware/Device/UsbFile.h"
 #include "Hardware/Device/Rtc.h"

@@ -88,8 +88,9 @@
 
 #define HW_DESCR          "native"
 
+#define HW_USB_FILE_NATIVE
 #define HW_MIDI_IN_NATIVE
-
+#define HW_LCD_NATIVE
 #define HW_DAC_NATIVE
 
 //------------------------------------------------------------------------------

@@ -23,4 +23,12 @@ elseif(${PLT_TARGET} STREQUAL rpipico2)
 
    add_subdirectory(Test)
 
+elseif(${PLT_TARGET} STREQUAL native)
+
+   set(hw_picoX21H_config_list
+       NATIVE
+       CACHE INTERNAL "picoX21H config Variations")
+
+   add_subdirectory(Test)
+
 endif()
