@@ -1,15 +1,15 @@
 # Hardware config picoX7
 
-Hardware config to support a MIDI synthesizer with a DAC, 16x2 LCD and 2x7 segment LED.
+Hardware config to support a MIDI synthesizer with a 16-bit stereo DAC, 16x2 LCD and 2x7 segment LED. MIDI in can be both via a physical MIDI or over USB from a USB host.
 
-The LCD, LED and physical MIDI-in are optional.
+The LCD, LED and physical MIDI-in are optional and will not block operation if not fitted.
 
 ![Prototype](docs/breadboard_v0.04.jpg)
 
 [Schematic](docs/schematic_v0.05.pdf) for the above.
 
-+ Two PIO state machines are used to generate I2S and (if required) MCLK for the I2S DACs
-+ UART-0 used as a debug console  (115200 baud)
++ A PIO state machine is used to generate I2S (and another if required MCLK) for the I2S DACs
++ UART-0 used as a debug console (115200 baud 8-N-1)
 + UART-1 (RX) implements the optional physical MIDI-IN interface
 + The LCD and LED displays are optional and will not block operation if not fitted
 
@@ -53,7 +53,7 @@ To drive a generic I2S DACs from pins 31, 32 and 34.
                    +-----------+
 ```
 ### PWM_DAC
-DAC implemented using the on-chip PWM with a few external resistors and capacitors on pin 26. Sound quality is poor!
+DAC implemented using the on-chip PWM with a few external resistors and capacitors on pin 31. Sound quality is poor!
 ```
                    +-----------+
 (Debug) TX UART <- |  1     40 | <> vbus +5v
@@ -79,7 +79,7 @@ DAC implemented using the on-chip PWM with a few external resistors and capacito
                    +-----------+
 ```
 ### WAVESHARE_REV2_1
-This build is for an I2S DAC based around the Cirrus Logic CS4344 on a WaveShare module Rev 2.1. This DAC has the added requirement for an extra MCLK signal compared to other I2S DACs. Also note, Cirrus Logic have discontinued this device.
+Support for an I2S DAC based around the Cirrus Logic CS4344 on a WaveShare module. This DAC has the added requirement compare to other I2S DACs for an extra MCLK signal. Also note, Cirrus Logic have discontinued this device.
 
 The pin allocations match the WaveShare module so that it can be used in a piggy back configuration.
 ```
