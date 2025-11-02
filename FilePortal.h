@@ -7,6 +7,8 @@
 
 #include "STB/FAT/FAT16.h"
 
+namespace hw {
+
 class FilePortal : public STB::FAT16<6>
 {
 public:
@@ -71,3 +73,4 @@ private:
    char index_html[512];
 };
 
+} // namespace hw

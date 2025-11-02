@@ -200,8 +200,8 @@ extern "C" void IRQ_USBCTRL()
 //! USB MIDI test
 static NOINLINE void testUsb(Phase phase_)
 {
-   static FilePortal file_portal{"HW_TEST",
-                                 "https://github.com/AnotherJohnH/Hardware/"};
+   static hw::FilePortal file_portal{"HW_TEST",
+                                     "https://github.com/AnotherJohnH/Hardware/"};
 
    static hw::UsbFileMidi usb{0x91C0, "test_hw", file_portal};
 
