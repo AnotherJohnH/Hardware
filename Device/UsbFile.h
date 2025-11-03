@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: MIT
 //-------------------------------------------------------------------------------
 
-// \brief USB Device
+// \brief USB File Device
 
 #pragma once
 
@@ -46,7 +46,8 @@ public:
    UsbFile(uint16_t         device_id_,
            const char*      device_name_,
            STB::FileSystem& file_system_)
-   {}
+   {
+   }
 
    void irq() {}
 };
