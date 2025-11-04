@@ -26,7 +26,7 @@ namespace hw {
 #if defined(HW_DAC_I2S_GENERIC)
 
 //! Generic I2S DAC
-template <unsigned SAMPLES_PER_TICK>
+template <unsigned SAMPLES_PER_TICK, bool STEREO_PAIRS = false>
 class Audio : public MTL::PioAudio<MTL::Pio0,SAMPLES_PER_TICK>
 {
 public:
@@ -35,7 +35,8 @@ public:
                                                   HW_DAC_I2S_SD,
                                                   HW_DAC_I2S_CLKS,
                                                   /* MCLK */ MTL::PIN_IGNORE,
-                                                  MTL::Audio::STEREO_PAIRS_16,
+                                                  STEREO_PAIRS ? MTL::Audio::STEREO_PAIRS_16
+                                                               : MTL::Audio::STEREO_16,
                                                   /* LSB LRCLK / MSB SCLK */ false}
    {
       MTL::config.gpio(HW_DAC_I2S_SD,       ">I2S SD");
@@ -47,7 +48,7 @@ public:
 #elif defined(HW_DAC_I2S_WAVESHARE_REV2_1)
 
 //! Waveshare Pico-Audio (Rev 2.1) I2S DAC
-template <unsigned SAMPLES_PER_TICK>
+template <unsigned SAMPLES_PER_TICK, bool STEREO_PAIRS = false>
 class Audio : public MTL::PioAudio<MTL::Pio0,SAMPLES_PER_TICK>
 {
 public:
@@ -56,7 +57,8 @@ public:
                                                   HW_DAC_I2S_SD,
                                                   HW_DAC_I2S_CLKS,
                                                   HW_DAC_I2S_MCLK,
-                                                  MTL::Audio::STEREO_PAIRS_16,
+                                                  STEREO_PAIRS ? MTL::Audio::STEREO_PAIRS_16
+                                                               : MTL::Audio::STEREO_16,
                                                   /* LSB LRCLK / MSB SCLK */ true}
    {
       MTL::config.gpio(HW_DAC_I2S_SD,       ">I2S SD");
