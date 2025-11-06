@@ -89,7 +89,7 @@ class Audio : public PLT::Audio::Out
 public:
    // XXX requested DAC frequency ignored
    Audio(unsigned dac_freq)
-      : PLT::Audio::Out(/* sample_rate */ 48000,
+      : PLT::Audio::Out(dac_freq,
                         PLT::Audio::Format::SINT16,
                         /* channels */ 2,
                         /* samples */ SAMPLES_PER_TICK)

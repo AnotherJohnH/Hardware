@@ -75,10 +75,29 @@ public:
             row = 0;
       }
 
-      frame.refresh();
+      draw();
    }
 
 private:
+   void draw()
+   {
+      frame.clear(BGCOL);
+
+      for(unsigned row = 0; row < ROWS; ++row)
+      {
+         for(unsigned col = 0; col < COLS; ++col)
+         {
+            frame.drawLine(FGCOL, col * 6,       row * 8,
+                                  (col + 1) * 6, row * 8);
+         }
+      }
+
+      frame.refresh();
+   }
+
+   static const STB::Colour BGCOL = STB::RGB(0xC0, 0xC0, 0xC0);
+   static const STB::Colour FGCOL = STB::RGB(0x00, 0x00, 0x00);
+
    static const unsigned COLS = 16;
    static const unsigned ROWS = 2;
 

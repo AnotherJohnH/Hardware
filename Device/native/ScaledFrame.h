@@ -7,8 +7,11 @@
 
 #pragma once
 
+#include <cstdlib>
+
 #include "GUI/Canvas.h"
 #include "PLT/Frame.h"
+#include "PLT/Event.h"
 
 template <unsigned WIDTH, unsigned HEIGHT, unsigned SCALE = 3, unsigned BORDER = 0>
 class ScaledFrame : public GUI::Canvas
@@ -44,6 +47,12 @@ private:
    void canvasRefresh(int32_t x1, int32_t y1, int32_t x2, int32_t y2) override
    {
       frame.refresh();
+
+      PLT::Event::Message event;
+      PLT::Event::poll(event);
+
+      if (event.type == PLT::Event::QUIT)
+         exit(0);
    }
 
    PLT::Frame frame;
