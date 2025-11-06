@@ -49,7 +49,7 @@ if(${PLT_TARGET} STREQUAL native)
 
    add_library(HW INTERFACE)
 
-   target_link_libraries(HW INTERFACE PLT STB)
+   target_link_libraries(HW INTERFACE GUI PLT STB)
 
    target_include_directories(HW INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/..)
 

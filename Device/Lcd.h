@@ -18,6 +18,7 @@
 #elif defined(HW_LCD_NATIVE)
 
 #include "native/ScaledFrame.h"
+#include "GUI/Font/Lcd.h"
 
 #endif
 
@@ -50,7 +51,7 @@ public:
    void progChar(unsigned ch, const uint8_t* bitmap_)
    {
       for(unsigned i = 0; i < 8; ++i)
-         image[ch & 0x7][i] = bitmap_[i];
+         image[ch & 0x7][i] = bitmap_[i] << 3;
    }
 
    void move(unsigned col_, unsigned row_)
@@ -62,10 +63,20 @@ public:
    void print(const char* text)
    {
       while(*text != '\0')
-         putchar(*text++);
+         writeChar(*text++);
+
+      draw();
    }
 
    void putchar(char ch)
+   {
+      writeChar(ch);
+
+      draw();
+   }
+
+private:
+   void writeChar(char ch)
    {
       text[row][col] = ch;
       if (++col == COLS)
@@ -74,11 +85,8 @@ public:
          if (++row == ROWS)
             row = 0;
       }
-
-      draw();
    }
 
-private:
    void draw()
    {
       frame.clear(BGCOL);
@@ -87,8 +95,18 @@ private:
       {
          for(unsigned col = 0; col < COLS; ++col)
          {
-            frame.drawLine(FGCOL, col * 6,       row * 8,
-                                  (col + 1) * 6, row * 8);
+            char ch = text[row][col];
+
+            if (ch < 16)
+            {
+               frame.drawAlphaMap<1>(FGCOL, 0x000000, 1 + col * 6, 1 + row * 9,
+                                     6, 8, &image[unsigned(ch & 7)][0]);
+            }
+            else
+            {
+               frame.drawChar(FGCOL, 0x000000, 1 + col * 6, 1 + row * 9,
+                              &GUI::font_lcd, ch);
+            }
          }
       }
 
@@ -104,7 +122,7 @@ private:
    static const unsigned WIDTH  = COLS * 6 + 1;
    static const unsigned HEIGHT = ROWS * 9 + 1;
 
-   ScaledFrame<WIDTH,HEIGHT> frame{"simulated 16x2 LCD"};
+   ScaledFrame<WIDTH,HEIGHT,/* SCALE */ 4> frame{"simulated 16x2 LCD"};
 
    unsigned col{0};
    unsigned row{0};
