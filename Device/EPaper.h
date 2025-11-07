@@ -17,7 +17,7 @@
 
 #elif defined(HW_EPAPER_NATIVE)
 
-#include "native/ScaledFrame.h"
+#include "native/Panel.h"
 
 #endif
 
@@ -66,20 +66,12 @@ public:
 class EPaper
 {
 public:
-   EPaper()
-   {
-   }
+   EPaper() = default;
 
    static constexpr unsigned WIDTH  = 296;
    static constexpr unsigned HEIGHT = 128;
 
-   using FakePaper = ScaledFrame<WIDTH, HEIGHT, /* SCALE */ 3, /* BORDER */ 16>;
-
-   class Canvas : public FakePaper
-   {
-   public:
-      Canvas() : FakePaper("simulated E-paper") {}
-   };
+   using Canvas = Panel<WIDTH, HEIGHT, /* SCALE */ 3>;
 
    static constexpr unsigned getWidth() { return WIDTH; }
    static constexpr unsigned getHeight() { return HEIGHT; }

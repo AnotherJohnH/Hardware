@@ -7,47 +7,26 @@
 
 #pragma once
 
-#include <cstdlib>
-
 #include "GUI/Canvas.h"
-#include "PLT/Frame.h"
 #include "PLT/Event.h"
 
-template <unsigned WIDTH, unsigned HEIGHT, unsigned SCALE = 3, unsigned BORDER = 0>
-class ScaledFrame : public GUI::Canvas
+#include "Rack.h"
+
+template <unsigned WIDTH, unsigned HEIGHT, unsigned SCALE = 4>
+class Panel : public GUI::Canvas
 {
 public:
-   ScaledFrame(const char* title_)
+   Panel()
       : GUI::Canvas(WIDTH, HEIGHT)
-      , frame(title_, WIDTH * SCALE + 2 * BORDER, HEIGHT * SCALE + 2 * BORDER)
    {
+      rack = Rack::alloc(WIDTH * SCALE, HEIGHT * SCALE, ox, oy);
    }
 
    static unsigned getWidth() { return WIDTH; }
-
    static unsigned getHeight() { return HEIGHT; }
 
-private:
-   void canvasClear(STB::Colour colour) override
+   void eventPoll()
    {
-      for(int32_t y = 0; y < frame.getHeight(); y++)
-      { 
-         frame.span(colour, 0, y, frame.getWidth());
-      }
-   }
-
-   void canvasPoint(STB::Colour colour, int32_t x_, int32_t y_) override
-   {
-      for(unsigned i = 0; i < SCALE; ++i)
-      {
-         frame.span(colour, BORDER + x_ * SCALE, BORDER + y_ * SCALE + i, BORDER + (x_ + 1) * SCALE);
-      }
-   }
-
-   void canvasRefresh(int32_t x1, int32_t y1, int32_t x2, int32_t y2) override
-   {
-      frame.refresh();
-
       PLT::Event::Message event;
       PLT::Event::poll(event);
 
@@ -55,5 +34,29 @@ private:
          exit(0);
    }
 
-   PLT::Frame frame;
+private:
+   void canvasClear(STB::Colour colour) override
+   {
+      for(unsigned y = 0; y < HEIGHT * SCALE; y++)
+      { 
+         rack->frame.span(colour, ox, oy + y, ox + WIDTH * SCALE);
+      }
+   }
+
+   void canvasPoint(STB::Colour colour, int32_t x_, int32_t y_) override
+   {
+      for(unsigned i = 0; i < SCALE; ++i)
+      {
+         rack->frame.span(colour, ox + x_ * SCALE, oy + y_ * SCALE + i,
+                                  ox + (x_ + 1) * SCALE);
+      }
+   }
+
+   void canvasRefresh(int32_t x1, int32_t y1, int32_t x2, int32_t y2) override
+   {
+      rack->frame.refresh();
+   }
+
+   unsigned ox, oy;
+   Rack*    rack;
 };
