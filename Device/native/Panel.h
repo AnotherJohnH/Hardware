@@ -12,14 +12,14 @@
 
 #include "Rack.h"
 
-template <unsigned WIDTH, unsigned HEIGHT, unsigned SCALE = 4>
+template <unsigned WIDTH, unsigned HEIGHT, unsigned SCALE = 4, unsigned BORDER = 0>
 class Panel : public GUI::Canvas
 {
 public:
    Panel()
       : GUI::Canvas(WIDTH, HEIGHT)
    {
-      rack = Rack::alloc(WIDTH * SCALE, HEIGHT * SCALE, ox, oy);
+      rack = Rack::alloc(BORDER * 2 + WIDTH * SCALE, BORDER * 2 + HEIGHT * SCALE, ox, oy);
    }
 
    static unsigned getWidth() { return WIDTH; }
@@ -37,9 +37,9 @@ public:
 private:
    void canvasClear(STB::Colour colour) override
    {
-      for(unsigned y = 0; y < HEIGHT * SCALE; y++)
+      for(unsigned y = 0; y < (BORDER * 2 + HEIGHT * SCALE); y++)
       { 
-         rack->frame.span(colour, ox, oy + y, ox + WIDTH * SCALE);
+         rack->frame.span(colour, ox, oy + y, ox + BORDER * 2 + WIDTH * SCALE);
       }
    }
 
@@ -47,8 +47,8 @@ private:
    {
       for(unsigned i = 0; i < SCALE; ++i)
       {
-         rack->frame.span(colour, ox + x_ * SCALE, oy + y_ * SCALE + i,
-                                  ox + (x_ + 1) * SCALE);
+         rack->frame.span(colour, ox + BORDER + x_ * SCALE, oy + BORDER + y_ * SCALE + i,
+                                  ox + BORDER + (x_ + 1) * SCALE);
       }
    }
 
