@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: MIT
 //-------------------------------------------------------------------------------
 
-// \brief Audio out interface
+// \brief Audio out interface with getSamples() call-back
 
 #pragma once
 
@@ -18,7 +18,8 @@
 #include "PLT/Audio.h"
 
 #else
-#error "DAC config not set"
+#include <cstdint>
+
 #endif
 
 namespace hw {
@@ -97,6 +98,20 @@ public:
 
 private:
    void getSamples(int16_t* buffer, unsigned n) override;
+};
+
+#else
+
+template <unsigned SAMPLES_PER_TICK>
+class Audio
+{
+public:
+   Audio(unsigned dac_freq_) {}
+
+   void start() {}
+
+protected:
+   void getSamples(int16_t* buffer, unsigned n);
 };
 
 #endif

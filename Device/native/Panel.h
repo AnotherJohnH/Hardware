@@ -3,8 +3,6 @@
 // SPDX-License-Identifier: MIT
 //-------------------------------------------------------------------------------
 
-// \brief 
-
 #pragma once
 
 #include "GUI/Canvas.h"
@@ -27,11 +25,7 @@ public:
 
    void eventPoll()
    {
-      PLT::Event::Message event;
-      PLT::Event::poll(event);
-
-      if (event.type == PLT::Event::QUIT)
-         exit(0);
+      rack->eventPoll();
    }
 
 private:
@@ -39,7 +33,7 @@ private:
    {
       for(unsigned y = 0; y < (BORDER * 2 + HEIGHT * SCALE); y++)
       { 
-         rack->frame.span(colour, ox, oy + y, ox + BORDER * 2 + WIDTH * SCALE);
+         rack->span(colour, ox, oy + y, ox + BORDER * 2 + WIDTH * SCALE);
       }
    }
 
@@ -47,14 +41,14 @@ private:
    {
       for(unsigned i = 0; i < SCALE; ++i)
       {
-         rack->frame.span(colour, ox + BORDER + x_ * SCALE, oy + BORDER + y_ * SCALE + i,
-                                  ox + BORDER + (x_ + 1) * SCALE);
+         rack->span(colour, ox + BORDER + x_ * SCALE, oy + BORDER + y_ * SCALE + i,
+                    ox + BORDER + (x_ + 1) * SCALE);
       }
    }
 
    void canvasRefresh(int32_t x1, int32_t y1, int32_t x2, int32_t y2) override
    {
-      rack->frame.refresh();
+      rack->refresh();
    }
 
    unsigned ox, oy;

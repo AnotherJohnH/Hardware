@@ -7,9 +7,11 @@
 
 #pragma once
 
+#include "GUI/Font/Lcd.h"
+
 #include "Panel.h"
 
-template <unsigned SCALE = 4>
+template <unsigned SCALE = 2>
 class Led
 {
 public:
@@ -17,9 +19,16 @@ public:
 
    bool operator=(bool state_)
    {
-      state = state_;
+      if (state != state_)
+      {
+         state = state_;
+         redraw = true;
+      }
 
-      draw();
+      if (redraw)
+         draw();
+
+      panel.eventPoll();
 
       return state;
    }
@@ -29,16 +38,29 @@ public:
 private:
    void draw()
    {
-      panel.clear(state ? FGCOL : BGCOL);
+      panel.clear(COL_PCB);
+
+      panel.fillRect(COL_LED, 4, 4, 16, 10);
+
+      if (state)
+         panel.fillRect(COL_ON, 6, 4, 14, 10);
+
+      panel.drawText(state ? COL_TXT_ON : COL_TXT, 0x000000, 2, 15, &GUI::font_lcd, "LED");
+
+      panel.refresh();
    }
 
-   static const STB::Colour BGCOL = STB::RGB(0x00, 0x00, 0x00);
-   static const STB::Colour FGCOL = STB::RGB(0xFF, 0x00, 0x00);
+   static const STB::Colour COL_LED = STB::RGB(0xC0, 0xC0, 0xC0);
+   static const STB::Colour COL_PCB = STB::RGB(0x00, 0x70, 0x00);
+   static const STB::Colour COL_ON  = STB::RGB(0x00, 0xFF, 0x00);
+   static const STB::Colour COL_TXT = STB::RGB(0xD0, 0xD0, 0xD0);
+   static const STB::Colour COL_TXT_ON = STB::RGB(0xD0, 0xF0, 0xD0);
 
-   static const unsigned WIDTH  = 8;
-   static const unsigned HEIGHT = 8;
+   static const unsigned WIDTH  = 20;
+   static const unsigned HEIGHT = 26;
 
    Panel<WIDTH,HEIGHT,SCALE> panel{};
 
+   bool redraw{true};
    bool state{false};
 };

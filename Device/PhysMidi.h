@@ -21,7 +21,7 @@ namespace hw {
 
 #if defined(HW_MIDI_IN_UART)
 
-//! Physical MIDI in
+//! Physical MIDI in using a MTL UART
 class PhysMidi : public MIDI::Interface
 {
 public:
@@ -44,7 +44,11 @@ private:
                         /* pull up */   true};
 };
 
-#elif defined(HW_MIDI_IN_FAKE)
+#elif defined(HW_MIDI_IN_NATIVE)
+
+using PhysMidi = PLT::MIDI::Interface;
+
+#else
 
 //! Fake MIDI in with hard coded messages
 class PhysMidi : public MIDI::Interface
@@ -69,10 +73,6 @@ private:
       0x43, 0x7F   // G vel=127
    };
 };
-
-#elif defined(HW_MIDI_IN_NATIVE)
-
-using PhysMidi = PLT::MIDI::Interface;
 
 #endif
 

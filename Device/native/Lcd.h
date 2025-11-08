@@ -7,20 +7,25 @@
 
 #pragma once
 
+#include <cstring>
+
 #include "GUI/Font/Lcd.h"
 
 #include "Panel.h"
 
-template <unsigned COLS, unsigned ROWS, unsigned SCALE = 4>
+template <unsigned COLS, unsigned ROWS, unsigned SCALE=4>
 class Lcd
 {
 public:
-   Lcd() = default;
+   Lcd()
+   {
+      memset(buffer, ' ', sizeof(buffer));
+   }
 
    void progChar(unsigned ch, const uint8_t* bitmap_)
    {
       for(unsigned i = 0; i < 8; ++i)
-         image[ch & 0x7][i] = bitmap_[i] << 3;
+         cgram[ch & 0x7][i] = bitmap_[i] << 3;
    }
 
    void move(unsigned col_, unsigned row_)
@@ -29,10 +34,10 @@ public:
       row = row_;
    }
 
-   void print(const char* text)
+   void print(const char* buffer)
    {
-      while(*text != '\0')
-         writeChar(*text++);
+      while(*buffer != '\0')
+         writeChar(*buffer++);
 
       draw();
    }
@@ -47,7 +52,11 @@ public:
 private:
    void writeChar(char ch)
    {
-      text[row][col] = ch;
+      if (buffer[row][col] != ch)
+      {
+         buffer[row][col] = ch;
+         redraw = true;
+      }
       if (++col == COLS)
       {
          col = 0;
@@ -58,28 +67,34 @@ private:
 
    void draw()
    {
-      panel.clear(BGCOL);
-
-      for(unsigned row = 0; row < ROWS; ++row)
+      if (redraw)
       {
-         for(unsigned col = 0; col < COLS; ++col)
-         {
-            char ch = text[row][col];
+         redraw = false;
 
-            if (ch < 16)
+         panel.clear(BGCOL);
+
+         for(unsigned row = 0; row < ROWS; ++row)
+         {
+            for(unsigned col = 0; col < COLS; ++col)
             {
-               panel.template drawAlphaMap<1>(FGCOL, 0x000000, 1 + col * 6, 1 + row * 9,
-                                              6, 8, &image[unsigned(ch & 7)][0]);
-            }
-            else
-            {
-               panel.drawChar(FGCOL, 0x000000, 1 + col * 6, 1 + row * 9,
-                              &GUI::font_lcd, ch);
+               char ch = buffer[row][col];
+
+               if (ch < 16)
+               {
+                  panel.template drawAlphaMap<1>(FGCOL, 0x000000, 1 + col * 6, 1 + row * 9,
+                                                 6, 8, &cgram[unsigned(ch & 7)][0]);
+               }
+               else
+               {
+                  panel.drawChar(FGCOL, 0x000000, 1 + col * 6, 1 + row * 9,
+                                 &GUI::font_lcd, ch);
+               }
             }
          }
+
+         panel.refresh();
       }
 
-      panel.refresh();
       panel.eventPoll();
    }
 
@@ -89,10 +104,11 @@ private:
    static const unsigned WIDTH  = COLS * 6 + 1;
    static const unsigned HEIGHT = ROWS * 9 + 1;
 
-   Panel<WIDTH,HEIGHT,SCALE> panel{};
+   Panel<WIDTH,HEIGHT,SCALE,/* BORDER */ 8> panel{};
 
    unsigned col{0};
    unsigned row{0};
-   char     text[ROWS][COLS];
-   uint8_t  image[8][8];
+   char     buffer[ROWS][COLS];
+   uint8_t  cgram[8][8];
+   bool     redraw{true};
 };
