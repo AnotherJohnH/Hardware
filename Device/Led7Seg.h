@@ -12,6 +12,10 @@
 #include "MTL/Pins.h"
 #include "MTL/Led7Seg.h"
 
+#elif defined(HW_LED_7_SEG_NATIVE)
+
+#include "native/Led7Seg.h"
+
 #endif
 
 namespace hw {
@@ -35,13 +39,7 @@ public:
 
 #elif defined(HW_LED_7_SEG_NATIVE)
 
-class Led7Seg
-{
-public:
-   Led7Seg() = default;
-
-   void printDec(unsigned, unsigned) {}
-};
+using Led7Seg = ::Led7Seg</* DIGITS */2>;
 
 #else
 

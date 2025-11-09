@@ -38,20 +38,19 @@ public:
 private:
    void draw()
    {
+      redraw = false;
+
       panel.clear(COL_PCB);
-
       panel.fillRect(COL_LED, 4, 4, 16, 10);
-
-      if (state)
-         panel.fillRect(COL_ON, 6, 4, 14, 10);
-
+      panel.fillRect(state ? COL_ON : COL_OFF, 6, 4, 14, 10);
       panel.drawText(state ? COL_TXT_ON : COL_TXT, 0x000000, 2, 15, &GUI::font_lcd, "LED");
 
       panel.refresh();
    }
 
+   static const STB::Colour COL_PCB = STB::RGB(0x00, 0x50, 0x00);
    static const STB::Colour COL_LED = STB::RGB(0xC0, 0xC0, 0xC0);
-   static const STB::Colour COL_PCB = STB::RGB(0x00, 0x70, 0x00);
+   static const STB::Colour COL_OFF = STB::RGB(0xA0, 0xA0, 0x40);
    static const STB::Colour COL_ON  = STB::RGB(0x00, 0xFF, 0x00);
    static const STB::Colour COL_TXT = STB::RGB(0xD0, 0xD0, 0xD0);
    static const STB::Colour COL_TXT_ON = STB::RGB(0xD0, 0xF0, 0xD0);

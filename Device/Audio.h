@@ -96,6 +96,8 @@ public:
                         /* samples */ SAMPLES_PER_TICK)
    {}
 
+   void irqHandler() {}
+
 private:
    void getSamples(int16_t* buffer, unsigned n) override;
 };

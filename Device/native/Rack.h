@@ -54,7 +54,7 @@ public:
 
 private:
     Rack(unsigned width_, unsigned height_)
-       : frame("Hardware - Virtual Rack", width_, height_)
+       : frame("Hardware - Virtual Component Rack", width_, height_)
        , max_height(height_)
     {
 
