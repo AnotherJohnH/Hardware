@@ -71,7 +71,7 @@ public:
    static constexpr unsigned WIDTH  = 296;
    static constexpr unsigned HEIGHT = 128;
 
-   using Canvas = Panel<WIDTH, HEIGHT, /* SCALE */ 3, /* BORDER */ 16>;
+   using Canvas = Panel<WIDTH, HEIGHT, /* SCALE */ 2, /* BORDER */ 16>;
 
    static constexpr unsigned getWidth() { return WIDTH; }
    static constexpr unsigned getHeight() { return HEIGHT; }

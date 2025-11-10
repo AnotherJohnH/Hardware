@@ -11,12 +11,14 @@
 #include "Hardware/Device/Test/TestLed.h"
 #include "Hardware/Device/Test/TestEPaper.h"
 #include "Hardware/Device/Test/TestUsbFile.h"
+#include "Hardware/Device/Test/TestButtons.h"
 
 static void test(hw::TestPhase phase_)
 {
    if (1) hw::testLed(phase_);
    if (1) hw::testEPaper(phase_);
    if (1) hw::testUsbFile(phase_);
+   if (1) hw::testButtons(phase_);
 }
 
 static void consoleReport()

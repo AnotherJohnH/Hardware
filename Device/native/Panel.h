@@ -11,22 +11,19 @@
 #include "Rack.h"
 
 template <unsigned WIDTH, unsigned HEIGHT, unsigned SCALE = 4, unsigned BORDER = 0>
-class Panel : public GUI::Canvas
+class Panel
+   : public GUI::Canvas
+   , public Rack::Panel
 {
 public:
-   Panel()
+   Panel(Rack::EventHandler* handler_ = nullptr)
       : GUI::Canvas(WIDTH, HEIGHT)
+      , Rack::Panel(BORDER * 2 + WIDTH * SCALE, BORDER * 2 + HEIGHT * SCALE, handler_)
    {
-      rack = Rack::alloc(BORDER * 2 + WIDTH * SCALE, BORDER * 2 + HEIGHT * SCALE, ox, oy);
    }
 
    static unsigned getWidth() { return WIDTH; }
    static unsigned getHeight() { return HEIGHT; }
-
-   void eventPoll()
-   {
-      rack->eventPoll();
-   }
 
 private:
    void canvasClear(STB::Colour colour) override
@@ -50,7 +47,4 @@ private:
    {
       rack->refresh();
    }
-
-   unsigned ox, oy;
-   Rack*    rack;
 };

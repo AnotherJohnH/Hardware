@@ -22,11 +22,8 @@ public:
       if (state != state_)
       {
          state = state_;
-         redraw = true;
-      }
-
-      if (redraw)
          draw();
+      }
 
       panel.eventPoll();
 
@@ -38,8 +35,6 @@ public:
 private:
    void draw()
    {
-      redraw = false;
-
       panel.clear(COL_PCB);
       panel.fillRect(COL_LED, 4, 4, 16, 10);
       panel.fillRect(state ? COL_ON : COL_OFF, 6, 4, 14, 10);
@@ -60,6 +55,5 @@ private:
 
    Panel<WIDTH,HEIGHT,SCALE> panel{};
 
-   bool redraw{true};
    bool state{false};
 };

@@ -5,32 +5,65 @@
 
 #pragma once
 
+#include <vector>
+
 #include "PLT/Event.h"
 #include "PLT/Frame.h"
 
 class Rack
 {
 public:
-    static Rack* alloc(unsigned width_, unsigned height_, unsigned& ox_, unsigned& oy_)
+    class EventHandler
+    {
+    public:
+       virtual void eventClick(unsigned x_, unsigned y_, bool down_) {}
+    };
+
+    class Panel
+    {
+       friend class Rack;
+
+    public:
+       Panel(unsigned width_, unsigned height_, EventHandler* handler_ = nullptr)
+          : w(width_)
+          , h(height_)
+          , handler(handler_)
+       {
+          Rack::alloc(this);
+       }
+
+       void eventPoll()
+       {
+          rack->eventPoll();
+       }
+
+    protected:
+       unsigned      w, h;
+       unsigned      ox, oy;
+       EventHandler* handler{nullptr};
+       Rack*         rack{};
+    };
+
+    static void alloc(Panel* panel_)
     {
        static Rack* rack{};
 
        if (rack == nullptr)
        {
-          rack = new Rack(width_, height_);
+          rack = new Rack(panel_);
 
-          ox_ = 0;
-          oy_ = 0;
+          panel_->ox = 0;
+          panel_->oy = 0;
        }
        else
        {
-          ox_ = rack->frame.getWidth();
-          oy_ = 0;
+          panel_->ox = rack->frame.getWidth();
+          panel_->oy = 0;
 
-          rack->extend(width_, height_);
+          rack->extend(panel_);
        }
 
-       return rack;
+       panel_->rack = rack;
     }
 
     void span(STB::Colour colour, unsigned x1, unsigned y, unsigned x2)
@@ -48,26 +81,53 @@ public:
        PLT::Event::Message event;
        PLT::Event::poll(event);
 
-       if (event.type == PLT::Event::QUIT)
+       switch(event.type)
+       {
+       case PLT::Event::QUIT:
           exit(0);
+          break;
+
+       case PLT::Event::BUTTON_DOWN:
+       case PLT::Event::BUTTON_UP:
+          for(auto& panel : panel_list)
+          {
+             if ((event.x >= panel->ox) && (event.x < (panel->ox + panel->w)) &&
+                 (event.y >= panel->oy) && (event.y < (panel->oy + panel->h)))
+             {
+                if (panel->handler != nullptr)
+                {
+                   panel->handler->eventClick(event.x - panel->ox, event.y - panel->oy,
+                                              event.type == PLT::Event::BUTTON_DOWN);
+                }
+                break;
+             }
+          }
+          break;
+
+       default:
+          break;
+       }
     }
 
 private:
-    Rack(unsigned width_, unsigned height_)
-       : frame("Hardware - Virtual Component Rack", width_, height_)
-       , max_height(height_)
+    Rack(Panel* panel_)
+       : frame("Hardware - Virtual Component Rack", panel_->w, panel_->h)
+       , max_height(panel_->h)
     {
-
+       panel_list.push_back(panel_);
     }
 
-    void extend(unsigned width_, unsigned height_)
+    void extend(Panel* panel_)
     {
-       if (height_ > max_height)
-          max_height = height_;
+       if (panel_->h > max_height)
+          max_height = panel_->h;
 
-       frame.resize(frame.getWidth() + width_, max_height);
+       frame.resize(frame.getWidth() + panel_->w, max_height);
+
+       panel_list.push_back(panel_);
     }
 
-    PLT::Frame frame;
-    unsigned   max_height{0};
+    PLT::Frame          frame;
+    unsigned            max_height{0};
+    std::vector<Panel*> panel_list{};
 };
