@@ -3,19 +3,23 @@
 // SPDX-License-Identifier: MIT
 //-------------------------------------------------------------------------------
 
-// \brief E-paper interface
+// \brief Display interface
 
 #pragma once
 
-#if defined(HW_EPAPER_WAVESHARE)
+#if defined(HW_DISPLAY_WAVESHARE_EPAPER)
 
 #include "MTL/EPaper_WS2_13_V3.h"
 
-#elif defined(HW_EPAPER_BADGER2040)
+#elif defined(HW_DISPLAY_BADGER2040)
 
 #include "MTL/badger2040.h"
 
-#elif defined(HW_EPAPER_NATIVE)
+#elif defined(HW_DISPLAY_TUFTY2040)
+
+#include "MTL/tufty2040.h"
+
+#elif defined(HW_DISPLAY_NATIVE)
 
 #include "native/Panel.h"
 
@@ -23,12 +27,12 @@
 
 namespace hw {
 
-#if defined(HW_EPAPER_WAVESHARE)
+#if defined(HW_DISPLAY_WAVESHARE_EPAPER)
 
-class EPaper : public MTL::EPaper_WS2_13_V3
+class Display : public MTL::EPaper_WS2_13_V3
 {
 public:
-   EPaper()
+   Display()
    {
       MTL::config.gpio(PIN_DC,  ">(e-paper)  DC");
       MTL::config.gpio(PIN_CS,  ">(e-paper)  CS");
@@ -42,12 +46,12 @@ public:
    }
 };
 
-#elif defined(HW_EPAPER_BADGER2040)
+#elif defined(HW_DISPLAY_BADGER2040)
 
-class EPaper : public MTL::badger2040::EPaper
+class Display : public MTL::badger2040::EPaper
 {
 public:
-   EPaper()
+   Display()
    {
       MTL::config.gpio(MTL::badger2040::PIN_EPAPER_DC,  ">DC  (e-paper)");
       MTL::config.gpio(MTL::badger2040::PIN_EPAPER_CS,  ">CS  (e-paper)");
@@ -61,12 +65,35 @@ public:
    }
 };
 
-#elif defined(HW_EPAPER_NATIVE)
+#elif defined(HW_DISPLAY_TUFTY2040)
 
-class EPaper
+class Display : public MTL::tufty2040::Lcd
 {
 public:
-   EPaper() = default;
+   Display()
+   {
+      MTL::config.gpio(MTL::rp2040::IO_PIN_10,  ">CS (LCD)");
+      MTL::config.gpio(MTL::rp2040::IO_PIN_11,  ">RS (LCD)");
+      MTL::config.gpio(MTL::rp2040::IO_PIN_12,  ">WR (LCD)");
+      MTL::config.gpio(MTL::rp2040::IO_PIN_13,  ">RD (LCD)");
+
+      MTL::config.gpio(MTL::rp2040::IO_PIN_14,  "=DB0 (LCD)");
+      MTL::config.gpio(MTL::rp2040::IO_PIN_15,  "=DB1 (LCD)");
+      MTL::config.gpio(MTL::rp2040::IO_PIN_16,  "=DB2 (LCD)");
+      MTL::config.gpio(MTL::rp2040::IO_PIN_17,  "=DB3 (LCD)");
+      MTL::config.gpio(MTL::rp2040::IO_PIN_18,  "=DB4 (LCD)");
+      MTL::config.gpio(MTL::rp2040::IO_PIN_19,  "=DB5 (LCD)");
+      MTL::config.gpio(MTL::rp2040::IO_PIN_20,  "=DB6 (LCD)");
+      MTL::config.gpio(MTL::rp2040::IO_PIN_21,  "=DB7 (LCD)");
+   }
+};
+
+#elif defined(HW_DISPLAY_NATIVE)
+
+class Display
+{
+public:
+   Display() = default;
 
    static constexpr unsigned WIDTH  = 296;
    static constexpr unsigned HEIGHT = 128;

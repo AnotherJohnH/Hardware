@@ -14,6 +14,12 @@
 
 #elif defined(HW_TEMP_SENSE_BADGER_MCP9808)
 
+#include "MTL/badger2040.h"
+#include "MTL/TempSens_MCP9808.h"
+
+#elif defined(HW_TEMP_SENSE_TUFTY_MCP9808)
+
+#include "MTL/tufty2040.h"
 #include "MTL/TempSens_MCP9808.h"
 
 #elif defined(HW_TEMP_SENSE_NATIVE)
@@ -45,6 +51,18 @@ public:
    {
       MTL::config.gpio(MTL::badger2040::I2C_QwSt::SDA, "=(temp) I2C SDA MCP9808");
       MTL::config.gpio(MTL::badger2040::I2C_QwSt::SCL, ">(temp) I2C SCL MCP9808");
+   }
+};
+
+#elif defined(HW_TEMP_SENSE_TUFTY_MCP9808)
+
+class TempSense : public MTL::TempSens_MCP9808<MTL::tufty2040::I2C_QwSt>
+{
+public:
+   TempSense()
+   {
+      MTL::config.gpio(MTL::tufty2040::I2C_QwSt::SDA, "=(temp) I2C SDA MCP9808");
+      MTL::config.gpio(MTL::tufty2040::I2C_QwSt::SCL, ">(temp) I2C SCL MCP9808");
    }
 };
 

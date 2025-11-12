@@ -15,6 +15,10 @@
 
 #include "MTL/badger2040.h"
 
+#elif defined(HW_BUTTONS_TUFTY2040)
+
+#include "MTL/tufty2040.h"
+
 #elif defined(HW_BUTTONS_NATIVE)
 
 #include "native/Buttons.h"
@@ -112,6 +116,61 @@ private:
    MTL::badger2040::SwitchC  btn3;
    MTL::badger2040::SwitchUp btn4;
    MTL::badger2040::SwitchDn btn5;
+};
+
+#elif defined(HW_BUTTONS_TUFTY2040)
+
+class Buttons : public STB::Keypad<5>
+{
+public:
+   Buttons(bool enable_irq_ = false)
+      : STB::Keypad<5>(/* manual_scan */ not enable_irq_)
+      , btn1(enable_irq_)
+      , btn2(enable_irq_)
+      , btn3(enable_irq_)
+      , btn4(enable_irq_)
+      , btn5(enable_irq_)
+   {
+      MTL::config.gpio(MTL::tufty2040::PIN_SW_A,  "= BTN1 (A)");
+      MTL::config.gpio(MTL::tufty2040::PIN_SW_B,  "= BTN2 (B)");
+      MTL::config.gpio(MTL::tufty2040::PIN_SW_C,  "= BTN3 (C)");
+      MTL::config.gpio(MTL::tufty2040::PIN_SW_UP, "= BTN4 (UP)");
+      MTL::config.gpio(MTL::tufty2040::PIN_SW_DN, "= BTN5 (DN)");
+   }
+
+   using Keypad<5>::operator[];
+
+   void irq()
+   {
+      btn1.ackIRQ();
+      btn2.ackIRQ();
+      btn3.ackIRQ();
+      btn4.ackIRQ();
+      btn5.ackIRQ();
+
+      keypadScan();
+   }
+
+private:
+   bool keypadSample(unsigned index_) const override
+   {
+      switch(index_)
+      {
+      case 0: return btn1;
+      case 1: return btn2;
+      case 2: return btn3;
+      case 3: return btn4;
+      case 4: return btn5;
+      }
+
+      return false;
+   }
+
+   MTL::tufty2040::SwitchA  btn1;
+   MTL::tufty2040::SwitchB  btn2;
+   MTL::tufty2040::SwitchC  btn3;
+   MTL::tufty2040::SwitchUp btn4;
+   MTL::tufty2040::SwitchDn btn5;
 };
 
 #elif defined(HW_BUTTONS_NATIVE)

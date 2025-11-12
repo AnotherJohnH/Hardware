@@ -1,6 +1,6 @@
 # Hardware config picoSense
 
-Hardware config to support E-paper with an I2C sensor.
+Hardware config to support E-paper or LCD with an I2C sensor.
 
 ![Prototype](docs/badger_2040.jpg)
 
@@ -13,6 +13,7 @@ Hardware config to support E-paper with an I2C sensor.
 | Config | Supported targets | Description |
 |------------|--------|-------------|
 | BADGER2040 | rpipico | Pimoroni badger2040 |
+| TUFTY2040 | rpipico | Pimoroni tufty2040 |
 | WAVESHARE_EPAPER | rpipico | WAVESHARE I2C EPAPER |
 | NATIVE | native | |
 
@@ -41,6 +42,31 @@ Hardware config to support E-paper with an I2C sensor.
                    gnd ## | 18     23 | ## gnd
                           | 19     22 | -> SPI CS   (e-paper)
                           | 20     21 | <- SPI MISO (e-paper)
+                          +-----------+
+```
+### TUFTY2040
+```
+                          +-----------+
+       (Debug) TX UART <- |  1     40 | <> vbus +5v
+                          |  2     39 | <> vsys
+                   gnd ## |  3     38 | ## gnd
+                          |  4     37 | <- 3v3-en
+                          |  5     36 | -> 3v3
+(temp) I2C SDA MCP9808 <> |  6     35 | <- adc-vref
+(temp) I2C SCL MCP9808 <- |  7     34 |    
+                   gnd ## |  8     33 | ## agnd
+             BTN5 (DN) <> |  9     32 |    
+              BTN1 (A) <> | 10     31 |    
+              BTN2 (B) <> | 11     30 | <- run
+              BTN3 (C) <> | 12     29 | <>  BTN4 (UP)
+                   gnd ## | 13     28 | ## gnd
+              CS (LCD) <- | 14     27 | <> DB7 (LCD)
+              RS (LCD) <- | 15     26 | <> DB6 (LCD)
+              WR (LCD) <- | 16     25 | <> DB5 (LCD)
+              RD (LCD) <- | 17     24 | <> DB4 (LCD)
+                   gnd ## | 18     23 | ## gnd
+             DB0 (LCD) <> | 19     22 | <> DB3 (LCD)
+             DB1 (LCD) <> | 20     21 | <> DB2 (LCD)
                           +-----------+
 ```
 ### WAVESHARE_EPAPER

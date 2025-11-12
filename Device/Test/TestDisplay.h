@@ -9,11 +9,12 @@
 
 namespace hw {
 
-inline NOINLINE void testEPaper(TestPhase phase_)
+inline NOINLINE void testDisplay(TestPhase phase_)
 {
-   static hw::EPaper::Canvas epaper{};
    static const STB::Colour WHITE = STB::RGB(0xC0, 0xC0, 0xC0);
    static const STB::Colour BLACK = STB::RGB(0x00, 0x00, 0x00);
+
+   static hw::Display::Canvas canvas{};
 
    switch(phase_)
    {
@@ -21,14 +22,14 @@ inline NOINLINE void testEPaper(TestPhase phase_)
       break;
 
    case INFO:
-      printf("EPaper: \n");
+      printf("Display: \n");
       break;
 
    case START:
-      epaper.clear(WHITE);
-      epaper.drawLine(BLACK, 0, 0, epaper.getWidth(), epaper.getHeight());
-      epaper.drawLine(BLACK, 0, epaper.getHeight(), epaper.getWidth(), 0);
-      epaper.refresh();
+      canvas.clear(WHITE);
+      canvas.drawLine(BLACK, 0, 0, canvas.getWidth(), canvas.getHeight());
+      canvas.drawLine(BLACK, 0, canvas.getHeight(), canvas.getWidth(), 0);
+      canvas.refresh();
       break;
 
    case RUN:
