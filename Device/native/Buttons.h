@@ -18,7 +18,10 @@ class Buttons
    , public STB::Keypad<NUM_BUTTONS>
 {
 public:
-   Buttons(bool scan_on_irq_) {}
+   Buttons(bool enable_irq_ = false)
+      : STB::Keypad<5>(/* manual_scan */ true)
+   {
+   }
 
    void irq() {}
 

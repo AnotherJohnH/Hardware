@@ -21,7 +21,13 @@ public:
    {
       if (state != state_)
       {
+         redraw = true;
          state = state_;
+      }
+
+      if (redraw)
+      {
+         redraw = false;
          draw();
       }
 
@@ -55,5 +61,6 @@ private:
 
    Panel<WIDTH,HEIGHT,SCALE> panel{};
 
+   bool redraw{true};
    bool state{false};
 };

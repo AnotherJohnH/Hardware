@@ -11,7 +11,7 @@
 
 #include "MTL/Gpio.h"
 
-#elif defined(HW_BUTTONS_BADGER)
+#elif defined(HW_BUTTONS_BADGER2040)
 
 #include "MTL/badger2040.h"
 
@@ -30,7 +30,9 @@ namespace hw {
 class Buttons : public STB::Keypad<5>
 {
 public:
-   Buttons(bool scan_on_irq_ = false)
+   Buttons(bool enable_irq_ = false)
+      : STB::Keypad<5>(/* manual_scan */ not enable_irq_)
+      , btns(enable_irq_)
    {
       MTL::config.gpio(HW_BUTTONS_GPIO_PIN + 0, "= BTN1 ");
       MTL::config.gpio(HW_BUTTONS_GPIO_PIN + 1, "= BTN2 ");
@@ -43,6 +45,8 @@ public:
 
    void irq()
    {
+      btns.ackIRQ();
+
       keypadScan();
    }
 
@@ -55,12 +59,18 @@ private:
    MTL::Gpio::In<6, HW_BUTTONS_GPIO_PIN, MTL::PadsBank::PULL_DOWN, /* schmitt trigger */ true> btns;
 };
 
-#elif defined(HW_BUTTONS_BADGER)
+#elif defined(HW_BUTTONS_BADGER2040)
 
 class Buttons : public STB::Keypad<5>
 {
 public:
-   Buttons(bool scan_on_irq_ = false)
+   Buttons(bool enable_irq_ = false)
+      : STB::Keypad<5>(/* manual_scan */ not enable_irq_)
+      , btn1(enable_irq_)
+      , btn2(enable_irq_)
+      , btn3(enable_irq_)
+      , btn4(enable_irq_)
+      , btn5(enable_irq_)
    {
       MTL::config.gpio(MTL::badger2040::PIN_SW_A,  "= BTN1 (A)");
       MTL::config.gpio(MTL::badger2040::PIN_SW_B,  "= BTN2 (B)");
@@ -73,6 +83,12 @@ public:
 
    void irq()
    {
+      btn1.ackIRQ();
+      btn2.ackIRQ();
+      btn3.ackIRQ();
+      btn4.ackIRQ();
+      btn5.ackIRQ();
+
       keypadScan();
    }
 
@@ -91,11 +107,11 @@ private:
       return false;
    }
 
-   MTL::Switch::badger2040::SwitchA  btn1;
-   MTL::Switch::badger2040::SwitchB  btn2;
-   MTL::Switch::badger2040::SwitchC  btn3;
-   MTL::Switch::badger2040::SwitchUp btn4;
-   MTL::Switch::badger2040::SwitchDn btn5;
+   MTL::badger2040::SwitchA  btn1;
+   MTL::badger2040::SwitchB  btn2;
+   MTL::badger2040::SwitchC  btn3;
+   MTL::badger2040::SwitchUp btn4;
+   MTL::badger2040::SwitchDn btn5;
 };
 
 #elif defined(HW_BUTTONS_NATIVE)
@@ -107,9 +123,13 @@ using Buttons = ::Buttons<5>;
 class Buttons : public STB::Keypad<5>
 {
 public:
-   Buttons(bool scan_on_irq_ = false) {}
+   Buttons(bool enable_irq_ = false)
+      : STB::Keypad<5>(/* manual_scan */ not enable_irq_)
+   {}
 
    using Keypad<5>::operator[];
+
+   void irq() {}
 
 private:
    bool keypadSample(unsigned index_) const override { return false; }

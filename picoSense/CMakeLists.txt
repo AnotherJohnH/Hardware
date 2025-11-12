@@ -24,22 +24,39 @@ elseif(${PLT_TARGET} STREQUAL native)
 endif()
 
 #-------------------------------------------------------------------------------
+# Helper function for building binaries for each hardware config
+
+function(add_hw_executable target_name source)
+
+    foreach(hw_config ${hw_picoSense_config_list})
+
+        set(target ${target_name}_${hw_config})
+
+        add_executable(${target} ${source})
+
+        target_include_directories(${target}
+            PUBLIC ${CMAKE_CURRENT_BINARY_DIR}
+        )
+
+        target_compile_definitions(${target}
+            PRIVATE HW_${hw_config}
+        )
+
+        target_link_libraries(${target}
+            PRIVATE GUI HW
+        )
+
+        set_target_properties(${target} PROPERTIES
+            RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+        )
+
+    endforeach()
+
+endfunction()
+
+
+#-------------------------------------------------------------------------------
 # Test
 
-foreach(hw_config ${hw_picoSense_config_list})
-
-   add_executable(test_picoSense_${hw_config}
-      test_picoSense.cpp)
-
-   target_include_directories(test_picoSense_${hw_config}
-      PUBLIC ${CMAKE_CURRENT_BINARY_DIR}
-      )
-
-   target_compile_definitions(test_picoSense_${hw_config} PRIVATE HW_${hw_config})
-
-   target_link_libraries(test_picoSense_${hw_config} PRIVATE HW)
-
-   set_target_properties(test_picoSense_${hw_config} PROPERTIES
-      RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")
-
-endforeach()
+add_hw_executable(picoSenseTest test.cpp)
+add_hw_executable(picoSenseEx   example.cpp)

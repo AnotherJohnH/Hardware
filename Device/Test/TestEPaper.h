@@ -32,7 +32,6 @@ inline NOINLINE void testEPaper(TestPhase phase_)
       break;
 
    case RUN:
-      epaper.refresh();
       break;
    }
 }
