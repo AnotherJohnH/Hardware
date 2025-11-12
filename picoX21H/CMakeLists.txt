@@ -28,25 +28,30 @@ elseif(${PLT_TARGET} STREQUAL native)
 endif()
 
 #-------------------------------------------------------------------------------
+# Helper function for building binaries for each hardware config
+
+function(add_picoX21H_executable target_name)
+
+    foreach(hw_config ${hw_picoX21H_config_list})
+
+        set(target ${target_name}_${hw_config})
+
+        add_executable(${target} ${ARGN})
+
+        target_include_directories(${target} PUBLIC  ${CMAKE_CURRENT_BINARY_DIR})
+        target_compile_definitions(${target} PRIVATE HW_${hw_config})
+        target_link_libraries(     ${target} PRIVATE HW)
+
+        set_target_properties(${target} PROPERTIES
+            RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")
+
+    endforeach()
+
+endfunction()
+
+#-------------------------------------------------------------------------------
 # Test
 
 autogen_py(Table_sine)
 
-foreach(hw_config ${hw_picoX21H_config_list})
-
-   add_executable(test_picoX21H_${hw_config}
-      Table_sine.cpp
-      test_picoX21H.cpp)
-
-   target_include_directories(test_picoX21H_${hw_config}
-      PUBLIC ${CMAKE_CURRENT_BINARY_DIR}
-      )
-
-   target_compile_definitions(test_picoX21H_${hw_config} PRIVATE HW_${hw_config})
-
-   target_link_libraries(test_picoX21H_${hw_config} PRIVATE HW)
-
-   set_target_properties(test_picoX21H_${hw_config} PROPERTIES
-      RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")
-
-endforeach()
+add_picoX21H_executable(picoX21HTest test.cpp Table_sine.cpp)
