@@ -26,37 +26,27 @@ endif()
 #-------------------------------------------------------------------------------
 # Helper function for building binaries for each hardware config
 
-function(add_hw_executable target_name source)
+function(add_picoSense_executable target_name)
 
     foreach(hw_config ${hw_picoSense_config_list})
 
         set(target ${target_name}_${hw_config})
 
-        add_executable(${target} ${source})
+        add_executable(${target} ${ARGN})
 
-        target_include_directories(${target}
-            PUBLIC ${CMAKE_CURRENT_BINARY_DIR}
-        )
-
-        target_compile_definitions(${target}
-            PRIVATE HW_${hw_config}
-        )
-
-        target_link_libraries(${target}
-            PRIVATE GUI HW
-        )
+        target_include_directories(${target} PUBLIC  ${CMAKE_CURRENT_BINARY_DIR})
+        target_compile_definitions(${target} PRIVATE HW_${hw_config})
+        target_link_libraries(${target}      PRIVATE GUI HW)
 
         set_target_properties(${target} PROPERTIES
-            RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
-        )
+            RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")
 
     endforeach()
 
 endfunction()
 
-
 #-------------------------------------------------------------------------------
 # Test
 
-add_hw_executable(picoSenseTest test.cpp)
-add_hw_executable(picoSenseEx   example.cpp)
+add_picoSense_executable(picoSenseTest test.cpp)
+add_picoSense_executable(picoSenseEx   example.cpp)
