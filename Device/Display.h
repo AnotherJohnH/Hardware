@@ -44,6 +44,8 @@ public:
       MTL::config.gpio(SPI::PIN_MOSI, ">(e-paper) SPI MOSI");
       MTL::config.gpio(SPI::PIN_MISO, "<(e-paper) SPI MISO");
    }
+
+   void setBrightness(uint8_t level_) {}
 };
 
 #elif defined(HW_DISPLAY_BADGER2040)
@@ -63,6 +65,8 @@ public:
       MTL::config.gpio(MTL::badger2040::EPAPER_SPI::PIN_MOSI, ">SPI MOSI (e-paper)");
       MTL::config.gpio(MTL::badger2040::EPAPER_SPI::PIN_MISO, "<SPI MISO (e-paper)");
    }
+
+   void setBrightness(uint8_t level_) {}
 };
 
 #elif defined(HW_DISPLAY_TUFTY2040)
@@ -95,8 +99,10 @@ class Display
 public:
    Display() = default;
 
-   static constexpr unsigned WIDTH  = 296;
-   static constexpr unsigned HEIGHT = 128;
+   void setBrightness(uint8_t level_) {}
+
+   static constexpr unsigned WIDTH  = HW_DISPLAY_WIDTH;
+   static constexpr unsigned HEIGHT = HW_DISPLAY_HEIGHT;
 
    using Canvas = Panel<WIDTH, HEIGHT, /* SCALE */ 2, /* BORDER */ 16>;
 
