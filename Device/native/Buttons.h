@@ -62,6 +62,18 @@ private:
       this->pushEvent(index, down_);
    }
 
+   void eventKey(unsigned code_, bool down_) override
+   {
+      switch(code_)
+      {
+      case 'z':       this->pushEvent(0, down_); break;
+      case ' ':       this->pushEvent(1, down_); break;
+      case 'x':       this->pushEvent(2, down_); break;
+      case PLT::UP:   this->pushEvent(3, down_); break;
+      case PLT::DOWN: this->pushEvent(4, down_); break;
+      }
+   }
+
    static const STB::Colour COL_BGND = STB::RGB(0xE0, 0xE0, 0xE0);
 
    static const unsigned BUTTON_HEIGHT = 52;

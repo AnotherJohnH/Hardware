@@ -17,6 +17,7 @@ public:
     {
     public:
        virtual void eventClick(unsigned x_, unsigned y_, bool down_) {}
+       virtual void eventKey(unsigned code_, bool down_) {}
     };
 
     class Panel
@@ -100,6 +101,18 @@ public:
                                               event.type == PLT::Event::BUTTON_DOWN);
                 }
                 break;
+             }
+          }
+          break;
+
+       case PLT::Event::KEY_DOWN:
+       case PLT::Event::KEY_UP:
+          for(auto& panel : panel_list)
+          {
+             if (panel->handler != nullptr)
+             {
+                panel->handler->eventKey(event.code,
+                                         event.type == PLT::Event::KEY_DOWN);
              }
           }
           break;
