@@ -10,19 +10,24 @@
 #include "STB/Colour.h"
 
 #include "Hardware/picoGame/Config.h"
+#include "Hardware/FilePortal.h"
 
-inline const STB::Colour WHITE = STB::RGB(0xFF, 0xFF, 0xFF);
-inline const STB::Colour BLACK = STB::RGB(0x00, 0x00, 0x00);
+static hw::FilePortal file_portal{"picoGame",
+                          "https://github.com/AnotherJohnH/Hardware/blob/main/picoGame"};
 
 static hw::Led             led;
 static hw::Buttons         buttons{/* enable_irq */ true};
 static hw::Display         display{};
 static hw::Display::Canvas canvas{};
+static hw::UsbFile         usb{0x91C0, "picoGame", file_portal};
 
 extern "C" void IRQ_IO_BANK0() { buttons.irq(); }
+extern "C" void IRQ_USBCTRL()  { usb.irq(); }
 
 int main()
 {
+   file_portal.addREADME("picoGame");
+
    display.setBrightness(0xC0);
 
    led = false;

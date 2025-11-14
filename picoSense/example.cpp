@@ -7,25 +7,36 @@
 #include <unistd.h>
 
 #include "GUI/Font/Teletext.h"
+#include "STB/Colour.h"
 
 #include "Hardware/picoSense/Config.h"
+#include "Hardware/FilePortal.h"
+
+static hw::FilePortal file_portal{"picoSense",
+                          "https://github.com/AnotherJohnH/Hardware/blob/main/picoSense"};
 
 inline const STB::Colour WHITE = STB::RGB(0xC0, 0xC0, 0xC0);
-inline const STB::Colour BLACK = STB::RGB(0x00, 0x00, 0x00);
 
 static hw::Led             led;
 static hw::Buttons         buttons{/* enable_irq */ true};
-static hw::Display::Canvas canvas;
+static hw::Display         display{};
+static hw::Display::Canvas canvas{};
+static hw::UsbFile         usb{0x91C0, "picoSense", file_portal};
 static hw::TempSense       sensor;
 
 extern "C" void IRQ_IO_BANK0() { buttons.irq(); }
+extern "C" void IRQ_USBCTRL()  { usb.irq(); }
 
 int main()
 {
+   file_portal.addREADME("picoSense");
+
+   display.setBrightness(0xC0);
+
    led = false;
 
    canvas.clear(WHITE);
-   canvas.drawText(BLACK, WHITE, 10, 10, &GUI::font_teletext18, "Hello, world!");
+   canvas.drawText(STB::BLACK, WHITE, 10, 10, &GUI::font_teletext18, "Hello, world!");
    canvas.refresh();
 
    sensor.start();
@@ -50,7 +61,7 @@ int main()
                      value / 10, value % 10, DEGREE_SYMBOL);
 
             canvas.clear(WHITE);
-            canvas.drawText(BLACK, WHITE, 10, 10, &GUI::font_teletext18, text);
+            canvas.drawText(STB::BLACK, WHITE, 10, 10, &GUI::font_teletext18, text);
             canvas.refresh();
          }
       }
