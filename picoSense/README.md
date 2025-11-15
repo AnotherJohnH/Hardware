@@ -12,9 +12,9 @@ Hardware config to support E-paper or LCD with an I2C sensor.
 
 | Config | Supported targets | Description |
 |------------|--------|-------------|
-| BADGER2040 | rpipico | Pimoroni badger2040 |
-| TUFTY2040 | rpipico | Pimoroni tufty2040 |
-| WAVESHARE_EPAPER | rpipico | WAVESHARE I2C EPAPER |
+| BADGER2040 | rp2040 | Pimoroni badger2040 |
+| TUFTY2040 | rp2040 | Pimoroni tufty2040 |
+| WAVESHARE_EPAPER | rp2040 | WAVESHARE I2C EPAPER |
 | NATIVE | native | |
 
 ## Pin out

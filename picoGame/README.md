@@ -6,7 +6,7 @@ Hardware config to support LCD with some buttons.
 
 | Config | Supported targets | Description |
 |------------|--------|-------------|
-| TUFTY2040 | rpipico | Pimoroni tufty2040 |
+| TUFTY2040 | rp2040 | Pimoroni tufty2040 |
 | NATIVE | native | |
 
 ## Pin out

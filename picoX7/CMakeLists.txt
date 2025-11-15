@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: MIT
 #-------------------------------------------------------------------------------
 
-if(${PLT_TARGET} STREQUAL rpipico)
+if(${PLT_TARGET} STREQUAL rp2040)
 
    set(hw_picoX7_config_list
        I2S_DAC
@@ -13,7 +13,7 @@ if(${PLT_TARGET} STREQUAL rpipico)
        PIMORONI_VGA_DEMO
        CACHE INTERNAL "picoX7 config Variations")
 
-elseif(${PLT_TARGET} STREQUAL rpipico2)
+elseif(${PLT_TARGET} STREQUAL rp2350)
 
    set(hw_picoX7_config_list
        I2S_DAC

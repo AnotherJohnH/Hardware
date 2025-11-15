@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: MIT
 #-------------------------------------------------------------------------------
 
-if(${PLT_TARGET} STREQUAL rpipico)
+if(${PLT_TARGET} STREQUAL rp2040)
 
    set(hw_picoSense_config_list
        WAVESHARE_EPAPER
@@ -11,7 +11,7 @@ if(${PLT_TARGET} STREQUAL rpipico)
        TUFTY2040
        CACHE INTERNAL "picoSense config Variations")
 
-elseif(${PLT_TARGET} STREQUAL rpipico2)
+elseif(${PLT_TARGET} STREQUAL rp2350)
 
    set(hw_picoSense_config_list
        CACHE INTERNAL "picoSense config Variations")

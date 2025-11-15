@@ -17,11 +17,11 @@ The LCD, LED and physical MIDI-in are optional and will not block operation if n
 
 | Config | Supported targets | Description |
 |------------|--------|-------------|
-| I2S_DAC | rpipico, rpipico2 | Generic I2S DAC |
-| WAVESHARE_REV2_1| rpipico, rpipico2 | WAVESHARE Pico-Audio Rev2.1 I2S DAC (piggy back) |
-| PIMORONI_PICO_AUDIO | rpipico, rpipico2 | Pimoroni Pico Audio I2S DAC (piggy back) |
-| PWM_DAC | rpipico, rpipico2 | Simple Pulse Width Modulation DAC |
-| PIMORONI_VGA_DEMO | rpipico | Pimoroni VGA Demo Base |
+| I2S_DAC | rp2040, rp2350 | Generic I2S DAC |
+| WAVESHARE_REV2_1| rp2040, rp2350 | WAVESHARE Pico-Audio Rev2.1 I2S DAC (piggy back) |
+| PIMORONI_PICO_AUDIO | rp2040, rp2350 | Pimoroni Pico Audio I2S DAC (piggy back) |
+| PWM_DAC | rp2040, rp2350 | Simple Pulse Width Modulation DAC |
+| PIMORONI_VGA_DEMO | rp2040 | Pimoroni VGA Demo Base |
 | NATIVE | native | |
 
 ## Pin out

@@ -32,15 +32,15 @@ or
 
 Being developed on MacOS but should build on Linux too.
 
-Indirect build for supported targets, rpipico and rpipico2 with cmake and make (or ninja)...
+Indirect build for supported targets, rp2040 and rp2350 with cmake and make (or ninja)...
 
     make
 
-Build a single hardware target e.g. rpipico2 using cmake...
+Build a single hardware target e.g. rp2350 using cmake...
 
     mkdir build
     cd build
-    cmake -DCMAKE_BUILD_TYPE=Release -DPLT_TARGET=rpipico2 -DCMAKE_TOOLCHAIN_FILE=Platform/MTL/rpipico2/toolchain.cmake ..
+    cmake -DCMAKE_BUILD_TYPE=Release -DPLT_TARGET=rp2350 -DCMAKE_TOOLCHAIN_FILE=Platform/MTL/rp2350/toolchain.cmake ..
     make
 
 flashable test images will be found under the build sub-directory here...

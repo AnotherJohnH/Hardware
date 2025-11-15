@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: MIT
 #-------------------------------------------------------------------------------
 
-if(${PLT_TARGET} STREQUAL rpipico)
+if(${PLT_TARGET} STREQUAL rp2040)
 
    set(hw_picoX21H_config_list
        I2S_DAC
@@ -11,7 +11,7 @@ if(${PLT_TARGET} STREQUAL rpipico)
        WAVESHARE_REV2_1
        CACHE INTERNAL "picoX21 config variations")
 
-elseif(${PLT_TARGET} STREQUAL rpipico2)
+elseif(${PLT_TARGET} STREQUAL rp2350)
 
    set(hw_picoX21H_config_list
        I2S_DAC
