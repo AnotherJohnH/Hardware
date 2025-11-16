@@ -36,7 +36,13 @@ int main()
    led = false;
 
    canvas.clear(WHITE);
-   canvas.drawText(STB::BLACK, WHITE, 10, 10, &GUI::font_teletext18, "Hello, world!");
+   canvas.drawRect(STB::BLACK, 0, 0, canvas.getWidth() - 1, canvas.getHeight() - 1);
+   canvas.drawText(STB::BLACK, WHITE, 10, 10, &GUI::font_teletext18, "Hello, World!");
+   canvas.drawText(STB::BLACK, WHITE, 10, 30, &GUI::font_teletext9,
+                   "ABCDEFGHIJKLMNOPOQRSTUVWXYZ");
+   canvas.drawText(STB::BLACK, WHITE, 10, 40, &GUI::font_teletext9,
+                   "abcdefghijklmnopoqrstuvwxyz");
+   canvas.drawText(STB::BLACK, WHITE, 10, 50, &GUI::font_teletext9,  "0123456789");
    canvas.refresh();
 
    sensor.start();
