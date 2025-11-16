@@ -7,7 +7,6 @@
 #include <cstdio>
 
 #include "MTL/MTL.h"
-#include "MTL/Pins.h"
 #include "MTL/Digital.h"
 
 void MTL_fault(unsigned excep_num_, uint32_t* fault_stack_ptr_)
@@ -27,7 +26,11 @@ void MTL_fault(unsigned excep_num_, uint32_t* fault_stack_ptr_)
 
    printf("PSR = %08x\n", fault_stack_ptr_[7]);
 
+#if 0
    MTL::Digital::Out<MTL::PIN_LED1> onboard_led;
+#else
+   bool onboard_led;
+#endif
 
    while(true)
    {

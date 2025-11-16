@@ -13,11 +13,7 @@
 
 #elif defined(HW_DISPLAY_BADGER2040)
 
-#include "MTL/badger2040.h"
-
 #elif defined(HW_DISPLAY_TUFTY2040)
-
-#include "MTL/tufty2040.h"
 
 #elif defined(HW_DISPLAY_NATIVE)
 
@@ -76,19 +72,19 @@ class Display : public MTL::tufty2040::Lcd
 public:
    Display()
    {
-      MTL::config.gpio(MTL::rp2040::IO_PIN_10,  ">CS (LCD)");
-      MTL::config.gpio(MTL::rp2040::IO_PIN_11,  ">RS (LCD)");
-      MTL::config.gpio(MTL::rp2040::IO_PIN_12,  ">WR (LCD)");
-      MTL::config.gpio(MTL::rp2040::IO_PIN_13,  ">RD (LCD)");
+      MTL::config.gpio(MTL::IO_PIN_10,  ">CS (LCD)");
+      MTL::config.gpio(MTL::IO_PIN_11,  ">RS (LCD)");
+      MTL::config.gpio(MTL::IO_PIN_12,  ">WR (LCD)");
+      MTL::config.gpio(MTL::IO_PIN_13,  ">RD (LCD)");
 
-      MTL::config.gpio(MTL::rp2040::IO_PIN_14,  "=DB0 (LCD)");
-      MTL::config.gpio(MTL::rp2040::IO_PIN_15,  "=DB1 (LCD)");
-      MTL::config.gpio(MTL::rp2040::IO_PIN_16,  "=DB2 (LCD)");
-      MTL::config.gpio(MTL::rp2040::IO_PIN_17,  "=DB3 (LCD)");
-      MTL::config.gpio(MTL::rp2040::IO_PIN_18,  "=DB4 (LCD)");
-      MTL::config.gpio(MTL::rp2040::IO_PIN_19,  "=DB5 (LCD)");
-      MTL::config.gpio(MTL::rp2040::IO_PIN_20,  "=DB6 (LCD)");
-      MTL::config.gpio(MTL::rp2040::IO_PIN_21,  "=DB7 (LCD)");
+      MTL::config.gpio(MTL::IO_PIN_14,  "=DB0 (LCD)");
+      MTL::config.gpio(MTL::IO_PIN_15,  "=DB1 (LCD)");
+      MTL::config.gpio(MTL::IO_PIN_16,  "=DB2 (LCD)");
+      MTL::config.gpio(MTL::IO_PIN_17,  "=DB3 (LCD)");
+      MTL::config.gpio(MTL::IO_PIN_18,  "=DB4 (LCD)");
+      MTL::config.gpio(MTL::IO_PIN_19,  "=DB5 (LCD)");
+      MTL::config.gpio(MTL::IO_PIN_20,  "=DB6 (LCD)");
+      MTL::config.gpio(MTL::IO_PIN_21,  "=DB7 (LCD)");
    }
 };
 

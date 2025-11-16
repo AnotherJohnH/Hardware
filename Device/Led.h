@@ -9,7 +9,6 @@
 
 #if defined(HW_LED)
 
-#include "MTL/Pins.h"
 #include "MTL/Digital.h"
 
 #elif defined(HW_LED_NATIVE)
@@ -22,7 +21,7 @@ namespace hw {
 
 #if defined(HW_LED)
 
-using Led = MTL::Digital::Out<MTL::PIN_LED1>;
+using Led = MTL::Digital::Out<HW_LED>;
 
 #elif defined(HW_LED_NATIVE)
 

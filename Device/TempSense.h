@@ -14,12 +14,10 @@
 
 #elif defined(HW_TEMP_SENSE_BADGER_MCP9808)
 
-#include "MTL/badger2040.h"
 #include "MTL/TempSens_MCP9808.h"
 
 #elif defined(HW_TEMP_SENSE_TUFTY_MCP9808)
 
-#include "MTL/tufty2040.h"
 #include "MTL/TempSens_MCP9808.h"
 
 #elif defined(HW_TEMP_SENSE_NATIVE)

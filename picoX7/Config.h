@@ -8,16 +8,18 @@
 #pragma once
 
 #if not defined(HW_NATIVE)
-#include "MTL/Config.h"
+#include "MTL/chip/Config.h"
 #endif
 
 //------------------------------------------------------------------------------
-#if defined(HW_I2S_DAC)
+#if defined(HW_RPIPICO_I2S_DAC)
+
+#include "MTL/chip/module/RPiPico.h"
 
 #define HW_DESCR          "I2S DAC"
 
 #define HW_USB_DEVICE
-#define HW_LED
+#define HW_LED            MTL::PIN_LED1
 
 #define HW_LCD_I2C        MTL::I2C1_P24_P25
 #define HW_LCD_I2C_ADDR   0x3E
@@ -33,12 +35,14 @@
 #define HW_LED_7_SEG_CLK  MTL::PIN_22
 
 //------------------------------------------------------------------------------
-#elif defined(HW_PWM_DAC)
+#elif defined(HW_RPIPICO_PWM_DAC)
+
+#include "MTL/chip/module/RPiPico.h"
 
 #define HW_DESCR          "PWM DAC"
 
 #define HW_USB_DEVICE
-#define HW_LED
+#define HW_LED            MTL::PIN_LED1
 
 #define HW_LCD_I2C        MTL::I2C1_P24_P25
 #define HW_LCD_I2C_ADDR   0x3E
@@ -52,34 +56,38 @@
 #define HW_LED_7_SEG_CLK  MTL::PIN_22
 
 //------------------------------------------------------------------------------
-#elif defined(HW_WAVESHARE_REV2_1)
+#elif defined(HW_RPIPICO_WAVESHARE_I2S_DAC_REV2_1)
+
+#include "MTL/chip/module/RPiPico.h"
 
 #define HW_DESCR          "WaveShare Rev2.1 I2S DAC (piggy-back)"
 
 #define HW_USB_DEVICE
-#define HW_LED
+#define HW_LED            MTL::PIN_LED1
 
 #define HW_MIDI_IN_UART   MTL::Uart1_P26_P27
 
 #define HW_LCD_I2C        MTL::I2C1_P24_P25
 #define HW_LCD_I2C_ADDR   0x3E
 
-#define HW_LED_7_SEG
-#define HW_LED_7_SEG_DAT  MTL::PIN_21
-#define HW_LED_7_SEG_CLK  MTL::PIN_22
-
 #define HW_DAC_I2S_WAVESHARE_REV2_1
 #define HW_DAC_I2S_SD     MTL::PIN_29
 #define HW_DAC_I2S_CLKS   MTL::PIN_32
 #define HW_DAC_I2S_MCLK   MTL::PIN_31
 
+#define HW_LED_7_SEG
+#define HW_LED_7_SEG_DAT  MTL::PIN_21
+#define HW_LED_7_SEG_CLK  MTL::PIN_22
+
 //------------------------------------------------------------------------------
-#elif defined(HW_PIMORONI_PICO_AUDIO)
+#elif defined(HW_RPIPICO_PIMORONI_PICO_AUDIO)
+
+#include "MTL/chip/module/RPiPico.h"
 
 #define HW_DESCR          "Pimoroni pico audio I2S DAC (piggy-back)"
 
 #define HW_USB_DEVICE
-#define HW_LED
+#define HW_LED            MTL::PIN_LED1
 
 #define HW_MIDI_IN_UART   MTL::Uart1_P26_P27
 
@@ -99,14 +107,16 @@
 
 #define HW_DESCR          "Pimoroni VGA Demo I2S DAC"
 
+#include "MTL/rp2040/Pins.h"
+
 #define HW_USB_DEVICE
-#define HW_LED
+#define HW_LED            MTL::IO_PIN_25
 
 #define HW_MIDI_IN_FAKE
 
 #define HW_DAC_I2S_GENERIC
-#define HW_DAC_I2S_SD     MTL::PIN_31
-#define HW_DAC_I2S_CLKS   MTL::PIN_32
+#define HW_DAC_I2S_SD     MTL::IO_PIN_26
+#define HW_DAC_I2S_CLKS   MTL::IO_PIN_27
 
 //------------------------------------------------------------------------------
 #elif defined(HW_NATIVE)

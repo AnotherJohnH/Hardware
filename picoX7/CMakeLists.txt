@@ -6,20 +6,20 @@
 if(${PLT_TARGET} STREQUAL rp2040)
 
    set(hw_picoX7_config_list
-       I2S_DAC
-       PWM_DAC
-       WAVESHARE_REV2_1
-       PIMORONI_PICO_AUDIO
+       RPIPICO_I2S_DAC
+       RPIPICO_PWM_DAC
+       RPIPICO_WAVESHARE_I2S_DAC_REV2_1
+       RPIPICO_PIMORONI_PICO_AUDIO
        PIMORONI_VGA_DEMO
        CACHE INTERNAL "picoX7 config Variations")
 
 elseif(${PLT_TARGET} STREQUAL rp2350)
 
    set(hw_picoX7_config_list
-       I2S_DAC
-       PWM_DAC
-       WAVESHARE_REV2_1
-       PIMORONI_PICO_AUDIO
+       RPIPICO_I2S_DAC
+       RPIPICO_PWM_DAC
+       RPIPICO_WAVESHARE_I2S_DAC_REV2_1
+       RPIPICO_PIMORONI_PICO_AUDIO
        CACHE INTERNAL "picoX7 config Variations")
 
 elseif(${PLT_TARGET} STREQUAL native)

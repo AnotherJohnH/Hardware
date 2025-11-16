@@ -9,7 +9,6 @@
 
 #if defined(HW_LED_7_SEG)
 
-#include "MTL/Pins.h"
 #include "MTL/Led7Seg.h"
 
 #elif defined(HW_LED_7_SEG_NATIVE)

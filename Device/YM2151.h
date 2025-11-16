@@ -10,8 +10,8 @@
 #if defined(HW_YM2151)
 
 #include "MTL/MTL.h"
-#include "MTL/Pins.h"
-#include "MTL/Gpio.h"
+#include "MTL/chip/Pins.h"
+#include "MTL/chip/Gpio.h"
 #include "MTL/chip/PioClock.h"
 #include "MTL/chip/PioYMDAC.h"
 

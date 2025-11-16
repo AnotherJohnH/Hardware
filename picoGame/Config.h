@@ -8,17 +8,19 @@
 #pragma once
 
 #if not defined(HW_NATIVE)
-#include "MTL/Config.h"
+#include "MTL/chip/Config.h"
 #endif
 
 //------------------------------------------------------------------------------
 #if defined(HW_TUFTY2040)
 
+#include "MTL/chip/module/tufty2040.h"
+
 #define HW_DESCR          "tufty2040"
 
 #define HW_USB_FILE_DEVICE
 #define HW_DISPLAY_TUFTY2040
-#define HW_LED
+#define HW_LED            MTL::tufty2040::PIN_USER_LED
 #define HW_BUTTONS_TUFTY2040
 
 //------------------------------------------------------------------------------

@@ -8,16 +8,18 @@
 #pragma once
 
 #if not defined(HW_NATIVE)
-#include "MTL/Config.h"
+#include "MTL/chip/Config.h"
 #endif
 
 //------------------------------------------------------------------------------
-#if defined(HW_I2S_DAC)
+#if defined(HW_RPIPICO_I2S_DAC)
+
+#include "MTL/chip/module/RPiPico.h"
 
 #define HW_DESCR          "I2S DAC"
 
 #define HW_USB_DEVICE
-#define HW_LED
+#define HW_LED            MTL::PIN_LED1
 
 #define HW_LCD_I2C        MTL::I2C1_P24_P25
 #define HW_LCD_I2C_ADDR   0x3E
@@ -35,12 +37,14 @@
 #define HW_YM2151_DATA8   MTL::PIN_14
 
 //------------------------------------------------------------------------------
-#elif defined(HW_PWM_DAC)
+#elif defined(HW_RPIPICO_PWM_DAC)
+
+#include "MTL/chip/module/RPiPico.h"
 
 #define HW_DESCR          "PWM DAC"
 
 #define HW_USB_DEVICE
-#define HW_LED
+#define HW_LED            MTL::PIN_LED1
 
 #define HW_LCD_I2C        MTL::I2C1_P24_P25
 #define HW_LCD_I2C_ADDR   0x3E
@@ -56,12 +60,14 @@
 #define HW_YM2151_DATA8   MTL::PIN_14
 
 //------------------------------------------------------------------------------
-#elif defined(HW_WAVESHARE_REV2_1)
+#elif defined(HW_RPIPICO_WAVESHARE_REV2_1)
+
+#include "MTL/chip/module/RPiPico.h"
 
 #define HW_DESCR          "WaveShare Rev2.1 I2S DAC (piggy-back)"
 
 #define HW_USB_DEVICE
-#define HW_LED
+#define HW_LED            MTL::PIN_LED1
 
 #define HW_MIDI_IN_UART   MTL::Uart1_P26_P27
 

@@ -13,9 +13,9 @@ Yamaha YM2151 FM synthesis chip.
 
 | Config | Supported targets | Description |
 |------------|--------|-------------|
-| I2S_DAC | rp2040, rp2350 | Generic I2S DAC |
-| PWM_DAC | rp2040, rp2350 | Pulse Width Modulation DAC |
-| WAVESHARE_REV2_1| rp2040, rp2350 | WAVESHARE I2S DAC |
+| RPIPICO_I2S_DAC | rp2040, rp2350 | Generic I2S DAC |
+| RPIPICO_PWM_DAC | rp2040, rp2350 | Pulse Width Modulation DAC |
+| RPIPICO_WAVESHARE_REV2_1| rp2040, rp2350 | WAVESHARE I2S DAC |
 | NATIVE | native | |
 
 ## Pin out

@@ -9,15 +9,11 @@
 
 #if defined(HW_BUTTONS_GPIO)
 
-#include "MTL/Gpio.h"
+#include "MTL/chip/Gpio.h"
 
 #elif defined(HW_BUTTONS_BADGER2040)
 
-#include "MTL/badger2040.h"
-
 #elif defined(HW_BUTTONS_TUFTY2040)
-
-#include "MTL/tufty2040.h"
 
 #elif defined(HW_BUTTONS_NATIVE)
 

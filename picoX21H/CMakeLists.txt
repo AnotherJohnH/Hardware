@@ -6,17 +6,17 @@
 if(${PLT_TARGET} STREQUAL rp2040)
 
    set(hw_picoX21H_config_list
-       I2S_DAC
-       PWM_DAC
-       WAVESHARE_REV2_1
+       RPIPICO_I2S_DAC
+       RPIPICO_PWM_DAC
+       RPIPICO_WAVESHARE_REV2_1
        CACHE INTERNAL "picoX21 config variations")
 
 elseif(${PLT_TARGET} STREQUAL rp2350)
 
    set(hw_picoX21H_config_list
-       I2S_DAC
-       PWM_DAC
-       WAVESHARE_REV2_1
+       RPIPICO_I2S_DAC
+       RPIPICO_PWM_DAC
+       RPIPICO_WAVESHARE_REV2_1
        CACHE INTERNAL "picoX21H config variations")
 
 elseif(${PLT_TARGET} STREQUAL native)

@@ -45,7 +45,7 @@ Build a single hardware target e.g. rp2350 using cmake...
 
 flashable test images will be found under the build sub-directory here...
 
-    build/Source/test_picoX21H_I2S_DAC.uf2
+    build/Source/picoX7Test_RPIPICO_I2S_DAC.uf2
 
 ## License
 

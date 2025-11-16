@@ -6,7 +6,7 @@
 if(${PLT_TARGET} STREQUAL rp2040)
 
    set(hw_picoSense_config_list
-       WAVESHARE_EPAPER
+       RPIPICO_WAVESHARE_EPAPER
        BADGER2040
        TUFTY2040
        CACHE INTERNAL "picoSense config Variations")
