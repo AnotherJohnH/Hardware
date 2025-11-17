@@ -16,7 +16,7 @@ if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
 
    include(CTest)
 
-   set(HARDWARE picoX7 picoX21H picoSense picoGame)
+   set(HARDWARE blinky picoX7 picoX21H picoSense picoGame)
 
 else()
 
