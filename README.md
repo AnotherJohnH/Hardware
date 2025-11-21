@@ -29,6 +29,16 @@ or
 + Python3
 + SDL2 (only for native test target)
 
+## Starting a new project using Hardware
+
+```
+mkdir MyProject
+cd MyProject
+git init .
+git submodule add git@github.com:AnotherJohnH/Hardware.git
+git submodule update --init --recursive
+```
+
 ## Build
 
 Being developed on MacOS but should build on Linux too.
