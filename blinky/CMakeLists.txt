@@ -29,6 +29,18 @@ elseif(${PLT_TARGET} STREQUAL LPC1768)
        MBED
        CACHE INTERNAL "blinky config Variations")
 
+elseif(${PLT_TARGET} STREQUAL nRF51)
+
+   set(hw_blinky_config_list
+       MICROBIT
+       CACHE INTERNAL "blinky config Variations")
+
+elseif(${PLT_TARGET} STREQUAL nRF52)
+
+   set(hw_blinky_config_list
+       MICROBIT
+       CACHE INTERNAL "blinky config Variations")
+
 elseif(${PLT_TARGET} STREQUAL native)
 
    set(hw_blinky_config_list

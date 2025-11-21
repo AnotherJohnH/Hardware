@@ -44,6 +44,14 @@
 #define HW_LED   MTL::PIN_LED1
 
 //------------------------------------------------------------------------------
+#elif defined(HW_MICROBIT)
+
+#include "MTL/chip/module/microbit.h"
+
+#define HW_DESCR "microbit"
+#define HW_LED   MTL::PIN_LED1
+
+//------------------------------------------------------------------------------
 #elif defined(HW_NATIVE)
 
 #define HW_DESCR          "native"
