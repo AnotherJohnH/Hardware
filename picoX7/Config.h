@@ -34,6 +34,8 @@
 #define HW_LED_7_SEG_DAT  MTL::PIN_21
 #define HW_LED_7_SEG_CLK  MTL::PIN_22
 
+#define HW_PROFILER
+
 //------------------------------------------------------------------------------
 #elif defined(HW_RPIPICO_PWM_DAC)
 
@@ -54,6 +56,8 @@
 #define HW_LED_7_SEG
 #define HW_LED_7_SEG_DAT  MTL::PIN_21
 #define HW_LED_7_SEG_CLK  MTL::PIN_22
+
+#define HW_PROFILER
 
 //------------------------------------------------------------------------------
 #elif defined(HW_RPIPICO_WAVESHARE_I2S_DAC_REV2_1)
@@ -79,6 +83,8 @@
 #define HW_LED_7_SEG_DAT  MTL::PIN_21
 #define HW_LED_7_SEG_CLK  MTL::PIN_22
 
+#define HW_PROFILER
+
 //------------------------------------------------------------------------------
 #elif defined(HW_RPIPICO_PIMORONI_PICO_AUDIO)
 
@@ -102,6 +108,8 @@
 #define HW_LED_7_SEG_DAT  MTL::PIN_21
 #define HW_LED_7_SEG_CLK  MTL::PIN_22
 
+#define HW_PROFILER
+
 //------------------------------------------------------------------------------
 #elif defined(HW_PIMORONI_VGA_DEMO)
 
@@ -117,6 +125,8 @@
 #define HW_DAC_I2S_GENERIC
 #define HW_DAC_I2S_SD     MTL::IO_PIN_26
 #define HW_DAC_I2S_CLKS   MTL::IO_PIN_27
+
+#define HW_PROFILER
 
 //------------------------------------------------------------------------------
 #elif defined(HW_NATIVE)
@@ -145,3 +155,4 @@
 #include "Hardware/Device/Led.h"
 #include "Hardware/Device/UsbFileMidi.h"
 #include "Hardware/Device/Led7Seg.h"
+#include "Hardware/Device/Profiler.h"
