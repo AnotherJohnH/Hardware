@@ -58,11 +58,24 @@ function(add_blinky_executable target_name)
 
         set(target ${target_name}_${hw_config})
 
-        add_executable(${target} ${ARGN})
+        set(sources "")
+        set(libs "")
+        set(mode "source")
 
+        foreach(arg IN LISTS ARGN)
+           if (arg STREQUAL "LIBRARIES")
+              set(mode "libs")
+           elseif(mode STREQUAL "source")
+               list(APPEND sources ${arg})
+           else()
+               list(APPEND libs ${arg})
+           endif()
+        endforeach()
+
+        add_executable(${target} ${sources})
         target_include_directories(${target} PUBLIC  ${CMAKE_CURRENT_BINARY_DIR})
         target_compile_definitions(${target} PRIVATE HW_${hw_config})
-        target_link_libraries(${target}      PRIVATE GUI HW)
+        target_link_libraries(     ${target} PRIVATE ${libs} HW)
 
         set_target_properties(${target} PROPERTIES
             RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")
