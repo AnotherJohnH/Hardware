@@ -99,7 +99,12 @@ public:
    void irqHandler() {}
 
 private:
-   void getSamples(int16_t* buffer, unsigned n) override;
+   void getSamples32(uint32_t* buffer, unsigned n);
+
+   void getSamples(int16_t* buffer, unsigned n) override
+   {
+      getSamples32((uint32_t*)buffer, n / 2);
+   }
 };
 
 #else
