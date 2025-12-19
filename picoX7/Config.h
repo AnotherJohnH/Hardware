@@ -34,6 +34,9 @@
 #define HW_LED_7_SEG_DAT  MTL::PIN_21
 #define HW_LED_7_SEG_CLK  MTL::PIN_22
 
+#define HW_BUTTONS        1
+#define HW_BUTTONS_PIN    MTL::PIN_29
+
 #define HW_PROFILER
 
 //------------------------------------------------------------------------------
@@ -56,6 +59,9 @@
 #define HW_LED_7_SEG
 #define HW_LED_7_SEG_DAT  MTL::PIN_21
 #define HW_LED_7_SEG_CLK  MTL::PIN_22
+
+#define HW_BUTTONS        1
+#define HW_BUTTONS_PIN    MTL::PIN_29
 
 #define HW_PROFILER
 
@@ -108,6 +114,9 @@
 #define HW_LED_7_SEG_DAT  MTL::PIN_21
 #define HW_LED_7_SEG_CLK  MTL::PIN_22
 
+#define HW_BUTTONS        1
+#define HW_BUTTONS_PIN    MTL::PIN_29
+
 #define HW_PROFILER
 
 //------------------------------------------------------------------------------
@@ -139,6 +148,7 @@
 #define HW_LCD_NATIVE
 #define HW_DAC_NATIVE
 #define HW_LED_7_SEG_NATIVE
+#define HW_BUTTONS        1
 
 //------------------------------------------------------------------------------
 #else
@@ -150,6 +160,7 @@
 //==============================================================================
 
 #include "Hardware/Device/Audio.h"
+#include "Hardware/Device/Buttons.h"
 #include "Hardware/Device/PhysMidi.h"
 #include "Hardware/Device/Lcd.h"
 #include "Hardware/Device/Led.h"

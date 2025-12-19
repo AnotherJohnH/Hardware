@@ -16,6 +16,7 @@
 #include "Hardware/Device/Test/TestUsbFileMidi.h"
 #include "Hardware/Device/Test/TestLed7Seg.h"
 #include "Hardware/Device/Test/TestAudio.h"
+#include "Hardware/Device/Test/TestButtons.h"
 
 static void test(hw::TestPhase phase_)
 {
@@ -25,6 +26,7 @@ static void test(hw::TestPhase phase_)
    if (1) hw::testUsbFileMidi(phase_);
    if (1) hw::testLed7Seg(phase_);
    if (1) hw::testAudio(phase_);
+   if (1) hw::testButtons(phase_);
 }
 
 static void consoleReport()
